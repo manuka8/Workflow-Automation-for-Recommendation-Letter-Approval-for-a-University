@@ -18,7 +18,8 @@ function App() {
       <Adminlogin />
       <Mainregister />
       <Studentregister />
-      <Staffregister />      
+      <Staffregister /> 
+      <h1>Hanzul</h1> 
     </div>
   );
 }
