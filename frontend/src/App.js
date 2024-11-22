@@ -19,7 +19,7 @@ function App() {
       <Mainregister />
       <Studentregister />
       <Staffregister /> 
-       
+       <p></p>
     </div>
   );
 }
