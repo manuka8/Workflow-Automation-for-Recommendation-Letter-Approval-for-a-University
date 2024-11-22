@@ -19,7 +19,7 @@ function App() {
       <Mainregister />
       <Studentregister />
       <Staffregister /> 
-      <h1>kjbtuv</h1> 
+       
     </div>
   );
 }
