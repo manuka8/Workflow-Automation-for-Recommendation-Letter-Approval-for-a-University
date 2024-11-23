@@ -1,22 +1,24 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Mainlogin = () => {
-  const navigation = useNavigation();
+function Home() {
+  const navigate = useNavigate();
 
   return (
-    <View className="container">
-      <div className="login-as-container">
-        <Text className="title">LOGIN AS A</Text>
-        <div className="role-buttons">
-          <Button className="btn-login" title="Student" onPress={() => navigation.navigate('StudentLogin')} />
-          <Button className="btn" title="Staff" onPress={() => {}} />
-          <Button className="btn" title="Admin" onPress={() => {}} />
-        </div>
-      </div>
-    </View>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Login</h1>
+      <button onClick={() => navigate("/studentlogin")} style={{ margin: "10px", padding: "10px 20px" }}>
+        Student Login
+      </button>
+      <button onClick={() => navigate("/adminlogin")} style={{ margin: "10px", padding: "10px 20px" }}>
+        Admin Login
+      </button>
+      <button onClick={() => navigate("/stafflogin")} style={{ margin: "10px", padding: "10px 20px" }}>
+        Staff Login
+      </button>
+    
+    </div>
   );
-};
+}
 
-export default Mainlogin;
+export default Home;
