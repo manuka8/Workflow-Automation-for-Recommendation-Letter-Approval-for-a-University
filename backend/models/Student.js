@@ -1,27 +1,53 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
+// Define the student schema
 const studentSchema = new mongoose.Schema({
-  studentId: { type: String, required: true, unique: true }, // Unique Student ID
-  faculty: { type: String, required: true },
-  department: { type: String, required: true },
-  email: { type: String, required: true, unique: true },  // Unique email
-  position: { type: String, required: true },
-  password: { type: String, required: true },
-  confirmPassword: { type: String, required: true }
+  studentId: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    match: [
+      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+      'Please fill a valid email address',
+    ],
+  },
+  faculty: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  department: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-// Hash the password before saving the student model
-studentSchema.pre('save', async function(next) {
-  if (this.isModified('password') || this.isNew) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  next();
-});
-
-// Method to compare given password with database hash
-studentSchema.methods.comparePassword = function(password) {
-  return bcrypt.compare(password, this.password);
-};
-
+// Export the model
 module.exports = mongoose.model('Student', studentSchema);
