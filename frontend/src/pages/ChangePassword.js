@@ -1,15 +1,4 @@
-import { useNavigate } from "react-router-dom";
-
 export default function Profile() {
-
-  const navigate = useNavigate();
-
-  const goChangepassword = () => {
-
-
-     navigate('/changepassword')
-
-  }
   return (
     <>
       <div className="max-w-2xl mx-auto p-4">
@@ -27,7 +16,7 @@ export default function Profile() {
           <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
             Change profile picture
           </button>
-          <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition duration-300" onClick={goChangepassword}>
+          <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition duration-300">
             Change password
           </button>
         </div>
