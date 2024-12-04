@@ -9,7 +9,7 @@ import Mainregister from "./pages/Mainregister";
 import Studentregister from "./pages/Studentregister";
 import Staffregister from "./pages/Staffregister";
 import Profile from './pages/Profile';
-import ChangePassword from './pages/ChangeProfilePicture';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   return (

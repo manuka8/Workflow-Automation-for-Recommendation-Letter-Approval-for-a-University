@@ -7,27 +7,26 @@ export default function Profile() {
   const goChangepassword = () => {
 
 
-     navigate('/changepassword')
+     navigate('/changepassword');
 
   }
   return (
     <>
-      <div className="max-w-2xl mx-auto p-4">
+      <div >
         {/* Profile image section */}
-        <div className="flex justify-center mb-4">
+        <div >
           <img
             src=""
             alt="profile image"
-            className="w-32 h-32 object-cover rounded-full border-2 border-gray-300"
           />
         </div>
 
         {/* Buttons section */}
-        <div className="flex justify-center gap-4">
-          <button className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+        <div >
+          <button >
             Change profile picture
           </button>
-          <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition duration-300" onClick={goChangepassword}>
+          <button  onClick={goChangepassword}>
             Change password
           </button>
         </div>
