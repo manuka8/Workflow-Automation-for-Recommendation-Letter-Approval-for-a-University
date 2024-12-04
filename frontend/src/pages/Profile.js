@@ -10,6 +10,13 @@ export default function Profile() {
      navigate('/changepassword');
 
   }
+
+  const gochangeprofilepic = () => {
+
+
+    navigate('/changeprofilepic');
+
+ }
   return (
     <>
       <div >
@@ -23,7 +30,7 @@ export default function Profile() {
 
         {/* Buttons section */}
         <div >
-          <button >
+          <button onClick={gochangeprofilepic}>
             Change profile picture
           </button>
           <button  onClick={goChangepassword}>

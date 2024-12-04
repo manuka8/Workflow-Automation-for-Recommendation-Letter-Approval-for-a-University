@@ -10,6 +10,7 @@ import Studentregister from "./pages/Studentregister";
 import Staffregister from "./pages/Staffregister";
 import Profile from './pages/Profile';
 import ChangePassword from './pages/ChangePassword';
+import ChangeProfilePicture from './pages/ChangeProfilePicture';
 
 function App() {
   return (
@@ -26,9 +27,10 @@ function App() {
         <Route path='/staffregister' element={<Staffregister/>} />
         <Route path='/profile' element={<Profile></Profile>}></Route>
         <Route path='/changepassword' element={<ChangePassword></ChangePassword>}></Route>
+        <Route path='/changeprofilepic' element={<ChangeProfilePicture></ChangeProfilePicture>}></Route>
       </Routes>
       </BrowserRouter>   
-    </div>
+     </div>
   );
 }
 
