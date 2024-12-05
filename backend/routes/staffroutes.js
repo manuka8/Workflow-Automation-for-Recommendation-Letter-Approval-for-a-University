@@ -70,4 +70,13 @@ router.get('/profile', authenticate, async (req, res) => {
   }
 });
 
+router.get("/findallstaff", async (req, res) => {
+  try {
+    const staff = await Staff.find(); // Fetch all staff from the database
+    res.json(staff);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
