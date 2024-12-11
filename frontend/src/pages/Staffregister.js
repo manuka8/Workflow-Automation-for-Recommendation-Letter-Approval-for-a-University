@@ -29,6 +29,8 @@ const Staffregister = () => {
     };
 
   return (
+
+    
     <div>
     <h2>Staff Register</h2>
     <form onSubmit={handleSubmit}>
