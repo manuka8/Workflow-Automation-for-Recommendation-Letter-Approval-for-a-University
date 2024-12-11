@@ -9,11 +9,11 @@ const Adminlogin = () =>{
     const[loading,setLoading]=useState(false);
 
     const handleSubmit = async (e)=>{
-        //default page refresh
+        
         e.preventDefault();
         setError("");
 
-        //input validation
+        
         if(!adminId || !password)
         {
             setError("Both fields are required");
@@ -59,10 +59,7 @@ const Adminlogin = () =>{
                 <div>
                 <button type="submit">Login</button>
                 </div>
-                
-
-
-            </form>
+                </form>
         </div>
     );
 };
