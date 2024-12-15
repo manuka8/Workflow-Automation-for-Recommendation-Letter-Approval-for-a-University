@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const CreateLetterTemplate = () => {
+  const [templateName, setTemplateName] = useState("");
+  const [type, setType] = useState("Students"); 
+  const [hierarchy, setHierarchy] = useState([{ position: "", staffId: "" }]);
+  const [staffData, setStaffData] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+};
 
 
 
