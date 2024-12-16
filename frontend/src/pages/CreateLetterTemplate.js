@@ -3,6 +3,70 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const CreateLetterTemplate = () => {
+    const [templateName, setTemplateName] = useState("");
+  const [type, setType] = useState("Students"); 
+  const [hierarchy, setHierarchy] = useState([{ position: "", staffId: "" }]);
+  const [staffData, setStaffData] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  // Fetch staff data
+  useEffect(() => {
+    const fetchStaffData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/staff/findallstaff");
+        setStaffData(response.data);
+      } catch (err) {
+        console.error("Error fetching staff data:", err);
+        setError("Failed to fetch staff data.");
+      }
+    };
+
+    fetchStaffData();
+  }, []);
+
+  const handleHierarchyChange = (index, field, value) => {
+    const updatedHierarchy = [...hierarchy];
+    updatedHierarchy[index][field] = value;
+    setHierarchy(updatedHierarchy);
+  };
+
+  const addHierarchyStep = () => {
+    setHierarchy([...hierarchy, { position: "", staffId: "" }]);
+  };
+
+  const removeHierarchyStep = (index) => {
+    setHierarchy(hierarchy.filter((_, idx) => idx !== index));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!templateName.trim()) {
+      setError("Template name is required.");
+      return;
+    }
+
+    if (hierarchy.some((step) => !step.position || !step.staffId)) {
+      setError("All hierarchy steps must have a position and staff ID.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/templates/create-template", {
+        templateName,
+        type,
+        hierarchy,
+      });
+      const { templateId } = response.data;
+
+      navigate(`/define-format/${templateId}`); // Redirect to Define Format page
+    } catch (err) {
+      console.error("Error creating template:", err);
+      setError(err.response?.data?.message || "Failed to create the template.");
+    }
+  };
   
 
     return (
