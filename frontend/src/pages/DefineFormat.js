@@ -50,7 +50,26 @@ const DefineFormat = () => {
     setQuestions(newQuestions);
   };
 
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/templates/${templateId}/format`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questions }),
+      });
+
+      if (response.ok) {
+        navigate('/admin-dashboard');
+      } else {
+        alert('Failed to define format');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred. Please try again.');
+    }
+  };
 
   return (
     <div>
