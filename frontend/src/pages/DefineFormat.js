@@ -21,6 +21,35 @@ const DefineFormat = () => {
     fetchHierarchy();
   }, [templateId]);
 
+  const handleAddQuestion = () => {
+    setQuestions([...questions, { question: '', answerType: 'text', options: [], visibility: 'all' }]);
+  };
+
+  const handleRemoveQuestion = (index) => {
+    setQuestions(questions.filter((_, i) => i !== index));
+  };
+
+  const handleQuestionChange = (index, field, value) => {
+    const newQuestions = [...questions];
+    newQuestions[index][field] = value;
+    setQuestions(newQuestions);
+  };
+
+  const handleOptionChange = (questionIndex, optionIndex, value) => {
+    const newQuestions = [...questions];
+    const updatedOptions = [...newQuestions[questionIndex].options];
+    updatedOptions[optionIndex] = value;
+    newQuestions[questionIndex].options = updatedOptions;
+    setQuestions(newQuestions);
+  };
+
+  const handleAddOption = (index) => {
+    const newQuestions = [...questions];
+    const updatedOptions = [...newQuestions[index].options, ''];
+    newQuestions[index].options = updatedOptions;
+    setQuestions(newQuestions);
+  };
+
   
 
   return (
