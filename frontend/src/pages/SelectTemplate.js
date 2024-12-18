@@ -13,6 +13,37 @@ const SelectTemplate = () => {
     const userID = localStorage.getItem("ID");
     const userType = localStorage.getItem("type");
 
+   
+     useEffect(() => {
+        const fetchTemplates = async () => {
+            try {
+                const response = await axios.post("http://localhost:5000/api/templates/findalltemplates", {
+                    userID,
+                    userType,
+                });
+
+          
+                const validTemplates = response.data.map(template => ({
+                    ...template,
+                    templateId: template.templateId || `TPL-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+                }));
+
+                setTemplates(validTemplates);
+            } catch (err) {
+                console.error("Error fetching templates:", err);
+                setError("Failed to fetch template data.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTemplates();
+    }, [userID, userType]);
+
+    const handleTemplateId = (id) => {
+        localStorage.setItem('templateId', id); 
+        navigate('/fillform'); 
+    };
     
     return (
         <div>
