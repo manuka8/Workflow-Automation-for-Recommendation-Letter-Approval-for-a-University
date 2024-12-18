@@ -4,6 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 const SelectTemplate = () => {
 
+    const [templates, setTemplates] = useState([]); 
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(true); 
+    const navigate = useNavigate();
+
+    
+    const userID = localStorage.getItem("ID");
+    const userType = localStorage.getItem("type");
+
+    
     return (
         <div>
             {loading && <p>Loading templates...</p>}
