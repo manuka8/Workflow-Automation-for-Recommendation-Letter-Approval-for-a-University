@@ -40,30 +40,16 @@ router.post('/create-template', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 3886ceb0eaabe7afc5444387c380cc12f72f6f29
 router.post('/:id/format', async (req, res) => {
   try {
     const { id } = req.params;
     const { questions } = req.body;
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> 3886ceb0eaabe7afc5444387c380cc12f72f6f29
+
     if (!questions || !Array.isArray(questions) || questions.length === 0) {
       return res.status(400).json({ message: 'Questions are required and must be an array.' });
     }
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> 3886ceb0eaabe7afc5444387c380cc12f72f6f29
     for (const question of questions) {
       if (!question.question || !question.answerType) {
         return res
@@ -79,18 +65,11 @@ router.post('/:id/format', async (req, res) => {
       { new: true } 
     );
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> 3886ceb0eaabe7afc5444387c380cc12f72f6f29
     if (!template) {
       return res.status(404).json({ message: 'Template not found.' });
     }
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> 3886ceb0eaabe7afc5444387c380cc12f72f6f29
+
     res.status(200).json({
       message: 'Template format defined successfully.',
       updatedTemplate: template,
@@ -101,9 +80,6 @@ router.post('/:id/format', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-module.exports = router;
-=======
 
 router.post("/findalltemplates", async (req, res) => {
   const { userID, userType } = req.body;
@@ -163,4 +139,3 @@ router.get('/:templateId/hierarchy', async (req, res) => {
 
 
 module.exports = router;
->>>>>>> 3886ceb0eaabe7afc5444387c380cc12f72f6f29
