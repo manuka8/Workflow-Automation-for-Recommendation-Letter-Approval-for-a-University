@@ -1,16 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const templateSchema = new mongoose.Schema({
   templateId: {
     type: String,
     unique: true,
-    
   },
   templateName: {
     type: String,
     required: true,
     unique: true,
     trim: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    enum: ["Students", "Staff"], 
   },
   hierarchy: [
     {
@@ -27,18 +31,21 @@ const templateSchema = new mongoose.Schema({
   questions: [
     {
       question: {
-        type: String,
-        required: true,
+        type: String
       },
       answerType: {
-        type: String, 
-        required: true,
+        type: String,
+        enum: ["text", "checkbox", "radio", "upload"],
       },
       options: [
         {
-          type: String, 
+          type: String,
         },
       ],
+      visibility: {
+        type: String,
+        default: "all",
+      },
     },
   ],
   createdAt: {
@@ -47,11 +54,11 @@ const templateSchema = new mongoose.Schema({
   },
 });
 
-templateSchema.pre('save', function (next) {
+templateSchema.pre("save", function (next) {
   if (!this.templateId) {
     this.templateId = `TPL-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
   }
   next();
 });
 
-module.exports = mongoose.model('Template', templateSchema);
+module.exports = mongoose.model("Template", templateSchema);
