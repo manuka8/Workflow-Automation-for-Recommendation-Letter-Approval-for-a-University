@@ -9,12 +9,36 @@ const Studentlogin = () => {
   
   return (
     <View className="container">
-      <div className="form-container">
-        <Text className="title">Student Login</Text>
-        <TextInput className="input" placeholder="Student ID" />
-        <TextInput className="input" placeholder="Password" secureTextEntry />
-        <Button className="btn-login" title="Log in" onPress={() => {}} />
-      </div>
+      <div>
+      <h2>Student Login</h2>
+      <form>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
+        <div>
+          <label>Student ID:</label>
+          <input
+            type="text"
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
+            placeholder="Enter your student ID"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
     </View>
   );
 };
