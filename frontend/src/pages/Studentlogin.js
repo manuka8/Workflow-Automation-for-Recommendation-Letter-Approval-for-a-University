@@ -2,6 +2,11 @@ import React from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 
 const Studentlogin = () => {
+  const [studentId, setStudentId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  
   return (
     <View className="container">
       <div className="form-container">
