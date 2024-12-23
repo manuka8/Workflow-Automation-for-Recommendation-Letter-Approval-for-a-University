@@ -17,6 +17,8 @@ const Studentlogin = () => {
         body: JSON.stringify({ studentId, password }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('ID', studentId);
