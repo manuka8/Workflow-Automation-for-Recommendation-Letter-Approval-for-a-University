@@ -34,3 +34,54 @@ const QuestionsPage = () => {
 
     fetchSubmissionData();
   }, []);
+  const handleApprove = async () => {
+    try {
+      const staffId = localStorage.getItem('ID');
+      const submissionId = localStorage.getItem('submissionId');
+
+      await axios.put(`http://localhost:5000/api/pending-approvals/${submissionId}/approve`, { staffId });
+
+      alert('Submission approved successfully!');
+      setHierarchy((prevHierarchy) =>
+        prevHierarchy.map((item) =>
+          item.staffId === staffId ? { ...item, approved: true } : item
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      alert('Failed to approve the submission.');
+    }
+  };
+
+  const handleResubmission = () => {
+    navigate('/resubmit-note');
+  };
+
+  const handleReject = () => {
+    navigate('/reject-note');
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div style={{ color: 'red' }}>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+      <h1>Questions and Answers</h1>
+      {questions.length === 0 ? (
+        <p>No questions available for you.</p>
+      ) : (
+        <ul>
+          {questions.map((q, index) => (
+            <li key={index} style={{ marginBottom: '15px' }}>
+              <strong>Question:</strong> {q.question} <br />
+              <strong>Answer:</strong> {q.answer.toString()} <br />
+              <em>Visibility:</em> {q.visibility}
+            </li>
+          ))}
+        </ul>
+      )}
