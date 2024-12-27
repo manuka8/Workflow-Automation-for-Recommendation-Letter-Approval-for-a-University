@@ -3,6 +3,20 @@ import React, { useState, useEffect } from 'react';
 const FillForm = () => {
     const [questions, setQuestions] = useState([]);const templateId = localStorage.getItem('templateId');
 
+    useEffect(() => {
+        const fetchTemplate = async () => {
+          try {
+            const response = await fetch(`http://localhost:5000/api/templates/findalltemplates/${templateId}`);
+            const data = await response.json();
+            setQuestions(data.questions || []);
+          } catch (err) {
+            console.error('Error fetching template:', err);
+          }
+        };
+    
+        fetchTemplate();
+      }, [templateId]);
+
     const handleInputChange = (index, value) => {
         const updatedQuestions = [...questions];
         updatedQuestions[index].answer = value;
