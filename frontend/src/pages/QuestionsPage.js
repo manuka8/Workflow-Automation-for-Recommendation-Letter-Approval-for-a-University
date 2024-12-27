@@ -85,3 +85,29 @@ const QuestionsPage = () => {
           ))}
         </ul>
       )}
+
+<div style={{ marginTop: '20px' }}>
+        <button
+          onClick={handleApprove}
+          style={{ marginRight: '10px', backgroundColor: 'green', color: 'white', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+        >
+          Approve
+        </button>
+        <button
+          onClick={handleResubmission}
+          style={{ marginRight: '10px', backgroundColor: 'orange', color: 'white', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+        >
+          Resubmission
+        </button>
+        <button
+          onClick={handleReject}
+          style={{ backgroundColor: 'red', color: 'white', padding: '10px 20px', border: 'none', cursor: 'pointer' }}
+        >
+          Reject
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default QuestionsPage;
