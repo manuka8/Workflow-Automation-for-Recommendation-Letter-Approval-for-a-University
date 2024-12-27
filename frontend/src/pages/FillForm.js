@@ -35,6 +35,31 @@ const FillForm = () => {
     
         setQuestions(updatedQuestions);
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+            const userId = localStorage.getItem('ID');
+          const response = await fetch('http://localhost:5000/api/submissions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId, 
+              templateId,
+              questions,
+            }),
+          });
+    
+          if (response.ok) {
+            alert('Form submitted successfully!');
+          } else {
+            alert('Failed to submit form.');
+          }
+        } catch (err) {
+          console.error('Error submitting form:', err);
+        }
+      };
     
     return(
         <div>
