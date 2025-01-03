@@ -28,19 +28,103 @@ import { View, Text, TextInput, Button } from 'react';
 
 const Studentregister= () => {
   return (
-    <View className="container">
-      <div className="form-container">
-        <Text className="title">Student Registration</Text>
-        <TextInput className="input" placeholder="Student ID" />
-        <TextInput className="input" placeholder="Faculty" />
-        <TextInput className="input" placeholder="Department" />
-        <TextInput className="input" placeholder="Email" keyboardType="email-address" />
-        <TextInput className="input" placeholder="Position" />
-        <TextInput className="input" placeholder="Password" secureTextEntry />
-        <TextInput className="input" placeholder="Confirm Password" secureTextEntry />
-        <Button className="btn-register" title="Register" onPress={() => {}} />
-      </div>
-    </View>
+    <div>
+      <h2>Student Registration</h2>
+      <form onSubmit={handleSubmit}>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {success && <p style={{ color: 'green' }}>{success}</p>}
+
+        <div>
+          <label>Student ID:</label>
+          <input
+            type="text"
+            value={studentId}
+            onChange={(e) => setStudentId(e.target.value)}
+            placeholder="Enter your student ID"
+            required
+          />
+        </div>
+
+        <div>
+          <label>First Name:</label>
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="Enter your first name"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Last Name:</label>
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Enter your last name"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Faculty:</label>
+          <input
+            type="text"
+            value={faculty}
+            onChange={(e) => setFaculty(e.target.value)}
+            placeholder="Enter your faculty"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Department:</label>
+          <input
+            type="text"
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            placeholder="Enter your department"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <div>
+          <label>Confirm Password:</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm your password"
+            required
+          />
+        </div>
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
   );
 };
 
