@@ -1,8 +1,9 @@
 
 import React, {useState} from 'react';
 
-const StudentRegister = () => {
-    const [studentId, setStudentId] = useState('');
+
+const Studentregister= () => {
+  const [studentId, setStudentId] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -12,21 +13,43 @@ const StudentRegister = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-return
-(
-    <div>
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
 
-    </div>
-)
+    try {
+      const response = await fetch('http://localhost:5000/api/student/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentId,
+          firstName,
+          lastName,
+          email,
+          faculty,
+          department,
+          password,
+        }),
+      });
 
-export default StudentRegister;
-=======
-import React from 'react';
-import { View, Text, TextInput, Button } from 'react';
+      const data = await response.json();
 
-const Studentregister= () => {
+      if (response.ok) {
+        setSuccess('Registration successful!');
+        setError('');
+      } else {
+        setError(data.message || 'Registration failed');
+        setSuccess('');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+      console.error(err);
+    }
+  };
   return (
     <div>
       <h2>Student Registration</h2>
