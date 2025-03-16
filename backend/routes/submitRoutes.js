@@ -79,6 +79,35 @@ router.post("/", upload.array("files"), async (req, res) => {
   }
 });
 
+router.get("/view-details/:submittedId", async (req, res) => {
+  try {
+    const { submittedId } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(submittedId)) {
+      return res.status(400).json({ message: "Invalid submission ID" });
+    }
+
+    const submission = await Submitted.findById(submittedId).populate("templateId");
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    const resubmission = await Resubmission.findOne({ submissionId: submittedId });
+
+    const response = {
+      templateName: submission.templateId.templateName,
+      submittedAt: submission.submittedAt,
+      hierarchy: submission.hierarchy,
+      isRejected: submission.reject,
+      isResubmission: !!resubmission,
+      resubmissionId: resubmission ? resubmission._id : null,
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 module.exports = router;
