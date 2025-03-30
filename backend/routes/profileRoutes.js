@@ -41,3 +41,35 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage });
   
+  
+router.put("/picture/:id", upload.single("profilePicture"), async (req, res) => {
+    const { userType } = req.query;
+    const Model = userType === "student" ? Student : Staff;
+    const userIdField = userType === "student" ? "studentId" : "staffId";
+    try {
+      
+      const user = await Model.findOne({ [userIdField]: req.params.id });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      
+      if (user.profilePicture) {
+        const previousImagePath = path.join(__dirname, "..", user.profilePicture);
+        if (fs.existsSync(previousImagePath)) {
+          fs.unlinkSync(previousImagePath); 
+        }
+      }
+  
+      
+      user.profilePicture = `/uploads/profile_pic/${req.file.filename}`;
+      await user.save();
+  
+      res.json({ profilePicture: user.profilePicture });
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+      res.status(500).json({ message: "Error updating profile picture" });
+    }
+  });
+  
