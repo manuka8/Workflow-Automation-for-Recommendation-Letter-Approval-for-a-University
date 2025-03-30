@@ -1,59 +1,60 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
-import '../css/StaffLogin.css';
-const Stafflogin = () => {
-  const [staffId, setStaffId] = useState('');
+import { useNavigate } from 'react-router-dom';
+import '../css/StudentLogin.css';
+
+const StudentLogin = () => {
+  const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setError('');
-    setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/staff/login', { staffId, password });
-      const { token } = response.data;
+      const response = await fetch('http://localhost:5000/api/student/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentId, password }),
+      });
 
-      localStorage.setItem('ID', staffId);
-      localStorage.setItem('token', token);
-      localStorage.setItem('type', 'Staff');
-      alert('Login successful!');
-      setLoading(false);
+      const data = await response.json();
 
-      navigate('/staffdashboard');
-    } catch (error) {
-      setLoading(false);
-      setError(error.response?.data?.message || 'An error occurred. Please try again.');
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('ID', studentId);
+        localStorage.setItem('type', 'student');
+        navigate(`/studentdashboard`);
+      } else {
+        setError(data.message || 'Login failed');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
     }
   };
 
   return (
-    <div className="student-loginr-container">
+    <div className="student-login-container">
       <div className="student-login-overlay">
-        <h2 className="student-login-title">Staff Login</h2>
-        {error && <p className="student-login-error">{error}</p>}
-        <form className="student-login-form" onSubmit={handleSubmit}>
+        <h2 className="student-login-title">Student Login</h2>
+        <form className="student-login-form" onSubmit={handleLogin}>
+          {error && <p className="student-login-error">{error}</p>}
+
           <div>
-            <label htmlFor="staffId">Staff ID:</label>
+            <label>Student ID:</label>
             <input
               type="text"
-              id="staffId"
-              value={staffId}
-              onChange={(e) => setStaffId(e.target.value)}
-              placeholder="Enter your staff ID"
+              value={studentId}
+              onChange={(e) => setStudentId(e.target.value)}
+              placeholder="Enter your student ID"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="password">Password:</label>
+            <label>Password:</label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
@@ -61,12 +62,8 @@ const Stafflogin = () => {
             />
           </div>
 
-          <button
-            className="student-login-button"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Login'}
+          <button className="student-login-button" type="submit">
+            Login
           </button>
         </form>
       </div>
@@ -74,4 +71,4 @@ const Stafflogin = () => {
   );
 };
 
-export default Stafflogin;
+export default StudentLogin;
