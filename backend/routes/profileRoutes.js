@@ -140,3 +140,15 @@ router.put("/picture/:id", upload.single("profilePicture"), async (req, res) => 
     }
   });
   
+  router.get('/user-counts', async (req, res) => {
+    const studentCount = await Student.countDocuments();
+    const staffCount = await Staff.countDocuments();
+    res.json({ studentCount, staffCount });
+  });
+  
+  router.get('/staff-counts', async (req, res) => {
+    const academicStaffCount = await Staff.countDocuments({ staffType: 'academic' });
+    const nonAcademicStaffCount = await Staff.countDocuments({ staffType: 'non-academic' });
+    res.json({ academicStaffCount, nonAcademicStaffCount });
+  });
+  
