@@ -152,3 +152,10 @@ router.put("/picture/:id", upload.single("profilePicture"), async (req, res) => 
     res.json({ academicStaffCount, nonAcademicStaffCount });
   });
   
+  router.get('/submission-counts', async (req, res) => {
+    const submissionCounts = await Submitted.aggregate([
+      { $group: { _id: "$templateId", count: { $sum: 1 } } }
+    ]);
+    res.json(submissionCounts);
+  });
+  
