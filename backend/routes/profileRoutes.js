@@ -112,3 +112,31 @@ router.put("/picture/:id", upload.single("profilePicture"), async (req, res) => 
     }
   });
   
+  router.get("/info/:id", async (req, res) => {
+    try {
+      let user = null;
+      let userType = null;
+  
+      const student = await Student.findOne({ studentId: req.params.id });
+      if (student) {
+        user = student;
+        userType = "student";
+      } else {
+        const staff = await Staff.findOne({ staffId: req.params.id });
+        if (staff) {
+          user = staff;
+          userType = "staff"; 
+        }
+      }
+  
+      if (user) {
+        res.json({ user, userType }); 
+      } else {
+        res.status(404).json({ message: "User not found" });
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
+  
