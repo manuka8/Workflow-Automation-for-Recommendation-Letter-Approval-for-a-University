@@ -73,3 +73,42 @@ router.put("/picture/:id", upload.single("profilePicture"), async (req, res) => 
     }
   });
   
+  router.put("/change-password/:id", async (req, res) => {
+    try {
+      const { userType, currentPassword, newPassword } = req.body;
+  
+      if (!userType || !currentPassword || !newPassword) {
+        return res.status(400).json({ message: "All fields are required" });
+      }
+  
+      const Model = userType === "student" ? Student : Staff;
+      const userIdField = userType === "student" ? "studentId" : "staffId";
+  
+      const user = await Model.findOne({ [userIdField]: req.params.id });
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Incorrect current password" });
+      }
+  
+      const isSamePassword = await bcrypt.compare(newPassword, user.password);
+      if (isSamePassword) {
+        return res.status(400).json({ message: "New password cannot be the same as the old password" });
+      }
+  
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(newPassword, salt);
+  
+      user.password = hashedPassword;
+      await user.save();
+  
+      return res.status(200).json({ message: "Password updated successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: "Server error" });
+    }
+  });
+  
