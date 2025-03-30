@@ -1,73 +1,77 @@
-import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
-
-const Studentlogin = () => {
-  const [studentId, setStudentId] = useState('');
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
+import '../css/StaffLogin.css';
+const Stafflogin = () => {
+  const [staffId, setStaffId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); 
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/student/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ studentId, password }),
-      });
+      const response = await axios.post('http://localhost:5000/api/staff/login', { staffId, password });
+      const { token } = response.data;
 
-      const data = await response.json();
+      localStorage.setItem('ID', staffId);
+      localStorage.setItem('token', token);
+      localStorage.setItem('type', 'Staff');
+      alert('Login successful!');
+      setLoading(false);
 
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('ID', studentId);
-        localStorage.setItem('type', 'student');
-        console.log(data.token) // Store token if needed
-        navigate(`/studentdashboard`); // Redirect to student dashboard
-      } else {
-        setError(data.message || 'Login failed');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-      console.error(err);
+      navigate('/staffdashboard');
+    } catch (error) {
+      setLoading(false);
+      setError(error.response?.data?.message || 'An error occurred. Please try again.');
     }
   };
-  
+
   return (
-    <View className="container">
-      <div>
-      <h2>Student Login</h2>
-      <form onSubmit={handleLogin}>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div className="student-loginr-container">
+      <div className="student-login-overlay">
+        <h2 className="student-login-title">Staff Login</h2>
+        {error && <p className="student-login-error">{error}</p>}
+        <form className="student-login-form" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="staffId">Staff ID:</label>
+            <input
+              type="text"
+              id="staffId"
+              value={staffId}
+              onChange={(e) => setStaffId(e.target.value)}
+              placeholder="Enter your staff ID"
+              required
+            />
+          </div>
 
-        <div>
-          <label>Student ID:</label>
-          <input
-            type="text"
-            value={studentId}
-            onChange={(e) => setStudentId(e.target.value)}
-            placeholder="Enter your student ID"
-            required
-          />
-        </div>
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
 
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
+          <button
+            className="student-login-button"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+      </div>
     </div>
-    </View>
   );
 };
 
-export default Studentlogin;
+export default Stafflogin;
