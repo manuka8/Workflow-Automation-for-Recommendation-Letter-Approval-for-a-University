@@ -27,3 +27,17 @@ router.get("/:id", async (req, res) => {
     }
   });
   
+  
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadDir = path.join(__dirname, "../uploads/profile_pic");
+      if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+      cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+      cb(null, req.params.id + path.extname(file.originalname)); 
+    },
+  });
+  
+  const upload = multer({ storage });
+  
