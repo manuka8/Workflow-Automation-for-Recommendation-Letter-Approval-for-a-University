@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
-
+import '../css/StaffLogin.css';
 const Stafflogin = () => {
   const [staffId, setStaffId] = useState('');
   const [password, setPassword] = useState('');
@@ -15,17 +15,15 @@ const Stafflogin = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/staff/login', { staffId, password }); 
+      const response = await axios.post('http://localhost:5000/api/staff/login', { staffId, password });
       const { token } = response.data;
 
-      
       localStorage.setItem('ID', staffId);
       localStorage.setItem('token', token);
-
+      localStorage.setItem('type', 'Staff');
       alert('Login successful!');
       setLoading(false);
 
-      
       navigate('/staffdashboard');
     } catch (error) {
       setLoading(false);
@@ -34,39 +32,46 @@ const Stafflogin = () => {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '5px' }}>
-      <h2>Staff Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="staffId">Staff ID</label>
-          <input
-            type="text"
-            id="staffId"
-            value={staffId}
-            onChange={(e) => setStaffId(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          />
-        </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          />
-        </div>
-        <button type="submit" disabled={loading} style={{ width: '100%', padding: '10px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '5px' }}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
+    <div className="student-loginr-container">
+      <div className="student-login-overlay">
+        <h2 className="student-login-title">Staff Login</h2>
+        {error && <p className="student-login-error">{error}</p>}
+        <form className="student-login-form" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="staffId">Staff ID:</label>
+            <input
+              type="text"
+              id="staffId"
+              value={staffId}
+              onChange={(e) => setStaffId(e.target.value)}
+              placeholder="Enter your staff ID"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <button
+            className="student-login-button"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default Stafflogin;
-
