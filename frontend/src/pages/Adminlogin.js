@@ -36,7 +36,7 @@ const Adminlogin = () =>{
         <div>
             <form onSubmit={handleSubmit}>
                 <h1>Admin Login</h1>
-                {error && <div className='errpr'>{error}
+                {error && <div className='error'>{error}
                     </div>}
                 <div className='form-group'>
                     <label htmlFor='admin-id'>Admin ID</label>
