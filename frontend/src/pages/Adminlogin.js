@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-
+import {useNavigate} from "react-router-dom";
+import '../css/Adminlogin.css';
 
 const Adminlogin = () =>{
     const[adminId,setAdminId] = useState("");
     const[password,setPassword] = useState("");
     const[error,setError] = useState("");
     const[showPassword,setShowPassword] = useState(false);
-    const[loading,setLoading]=useState(false);
+    
+    const navigate = useNavigate();
 
     const handleSubmit = async (e)=>{
         
@@ -19,13 +21,14 @@ const Adminlogin = () =>{
             setError("Both fields are required");
             return;
         }
-        if(adminId === "adminuov123" && password ==="adminp123")
+        if(adminId === "admin" && password ==="123")
         {
             alert("Login Successful");
+            navigate('/admindashboard');
         }
         else
         {
-            setError("Invalid AdminId or Password")
+            setError("Invalid AdminId or Password");
         }
     };
 
@@ -33,9 +36,10 @@ const Adminlogin = () =>{
         <div>
             <form onSubmit={handleSubmit}>
                 <h1>Admin Login</h1>
-
-                <div>
-                    <label>Admin ID</label>
+                {error && <div className='errpr'>{error}
+                    </div>}
+                <div className='form-group'>
+                    <label htmlFor='admin-id'>Admin ID</label>
                     <input 
                     type="text" 
                     placeholder='Enter Admin ID'
@@ -43,10 +47,11 @@ const Adminlogin = () =>{
                     />
                 </div>
 
-                <div>
-                    <p>Password</p>
+                <div className='form-group'>
+                    <label htmlFor='password'>Password</label>
                     <input 
-                    type="password" 
+                    id="password" 
+                    type={showPassword ? "text" : "password"}                   
                     placeholder="Enter Password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
