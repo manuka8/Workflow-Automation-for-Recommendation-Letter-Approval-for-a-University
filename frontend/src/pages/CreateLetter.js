@@ -4,16 +4,57 @@ import axios from "axios";
 
 const CreateLetterTemplate = () => {
   const [templateName, setTemplateName] = useState("");
-  const [type, setType] = useState("Students"); 
+  const [type, setType] = useState("Students");
   const [hierarchy, setHierarchy] = useState([{ position: "", staffId: "" }]);
   const [staffData, setStaffData] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-};
 
+  useEffect(() => {
+    const fetchStaffData = async () => {
+      try {
+        const response = await axios.get("/api/staff");
+        setStaffData(response.data);
+      } catch (err) {
+        setError("Failed to fetch staff data.");
+      }
+    };
 
+    fetchStaffData();
+  }, []);
 
-return (
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!templateName || hierarchy.some((step) => !step.position || !step.staffId)) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const payload = { templateName, type, hierarchy };
+      await axios.post("/api/templates", payload);
+      navigate("/templates");
+    } catch (err) {
+      setError("Error creating template. Please try again.");
+    }
+  };
+
+  const handleHierarchyChange = (index, field, value) => {
+    const updatedHierarchy = [...hierarchy];
+    updatedHierarchy[index][field] = value;
+    setHierarchy(updatedHierarchy);
+  };
+
+  const addHierarchyStep = () => {
+    setHierarchy([...hierarchy, { position: "", staffId: "" }]);
+  };
+
+  const removeHierarchyStep = (index) => {
+    const updatedHierarchy = hierarchy.filter((_, idx) => idx !== index);
+    setHierarchy(updatedHierarchy);
+  };
+
+  return (
     <div>
       <h2>Create Letter Template</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -86,22 +127,17 @@ return (
                 ))}
             </select>
 
-            <button 
-            type="button" 
-            onClick={() => removeHierarchyStep(index)}>
+            <button type="button" onClick={() => removeHierarchyStep(index)}>
               Remove
             </button>
           </div>
         ))}
 
-        <button 
-        type="button" 
-        onClick={addHierarchyStep}>
+        <button type="button" onClick={addHierarchyStep}>
           Add Hierarchy Step
         </button>
 
-        <button 
-        type="submit">Create Template</button>
+        <button type="submit">Create Template</button>
       </form>
     </div>
   );

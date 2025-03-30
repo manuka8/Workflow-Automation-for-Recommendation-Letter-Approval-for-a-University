@@ -1,68 +1,68 @@
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 
 const Stafflogin = () => {
   const [staffId, setStaffId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); 
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/staff/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ staffId, password }),
-      });
+      const response = await axios.post('http://localhost:5000/api/staff/login', { staffId, password }); 
+      const { token } = response.data;
 
-      const data = await response.json();
-      if (response.ok) {
-        // Save token in localStorage
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('ID', staffId);
-        // Redirect to dashboard
-        navigate('/staffdashboard');
-      } else {
-        setError(data.message || 'Login failed');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
-      console.error('Login error:', err);
+      
+      localStorage.setItem('ID', staffId);
+      localStorage.setItem('token', token);
+
+      alert('Login successful!');
+      setLoading(false);
+
+      
+      navigate('/staffdashboard');
+    } catch (error) {
+      setLoading(false);
+      setError(error.response?.data?.message || 'An error occurred. Please try again.');
     }
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ddd', borderRadius: '5px' }}>
       <h2>Staff Login</h2>
-      <form onSubmit={handleLogin}>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-
-        <div>
-          <label>Staff ID:</label>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="staffId">Staff ID</label>
           <input
             type="text"
+            id="staffId"
             value={staffId}
             onChange={(e) => setStaffId(e.target.value)}
-            placeholder="Enter your staff ID"
             required
+            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           />
         </div>
-
-        <div>
-          <label>Password:</label>
+        <div style={{ marginBottom: '15px' }}>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
             required
+            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           />
         </div>
-
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading} style={{ width: '100%', padding: '10px', background: '#007bff', color: '#fff', border: 'none', borderRadius: '5px' }}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );
