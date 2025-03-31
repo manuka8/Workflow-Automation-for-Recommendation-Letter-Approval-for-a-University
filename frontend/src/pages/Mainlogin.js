@@ -1,24 +1,39 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import '../css/MainLogin.css';
 
-function Home() {
+function MainLogin() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Login</h1>
-      <button onClick={() => navigate("/studentlogin")} style={{ margin: "10px", padding: "10px 20px" }}>
-        Student Login
-      </button>
-      <button onClick={() => navigate("/adminlogin")} style={{ margin: "10px", padding: "10px 20px" }}>
-        Admin Login
-      </button>
-      <button onClick={() => navigate("/stafflogin")} style={{ margin: "10px", padding: "10px 20px" }}>
-        Staff Login
-      </button>
-    
+    <div className="main-login-container">
+      <div className="main-login-overlay"></div>
+      <div className="main-login-content">
+        <h1 className="main-login-header">Welcome to Our Portal</h1>
+        <p className="main-login-subtext">Please select your login type</p>
+        <div className="main-login-button-container">
+          <button
+            onClick={() => navigate("/studentlogin")}
+            className="main-login-button student-login"
+          >
+            Student Login
+          </button>
+          <button
+            onClick={() => navigate("/stafflogin")}
+            className="main-login-button staff-login"
+          >
+            Academic Staff Login
+          </button>
+          <button
+            onClick={() => navigate("/nstafflogin")}
+            className="main-login-button non-staff-login"
+          >
+            Non-Academic Staff Login
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default Home;
+export default MainLogin;
