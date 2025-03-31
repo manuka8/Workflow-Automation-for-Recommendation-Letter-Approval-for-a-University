@@ -159,3 +159,4 @@ router.put("/picture/:id", upload.single("profilePicture"), async (req, res) => 
     res.json(submissionCounts);
   });
   
+  module.exports = router;
