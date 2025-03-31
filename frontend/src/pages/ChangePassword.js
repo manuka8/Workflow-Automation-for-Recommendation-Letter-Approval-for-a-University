@@ -63,3 +63,50 @@ const ChangePassword = () => {
       setMessageType("error");
     }
   };
+  return (
+    <>
+      <Navbar />
+      <div className="password-change__container">
+        <h2 className="password-change__title">Change Password</h2>
+        {message && (
+          <p
+            className={`password-change__alert password-change__alert--${messageType}`}
+          >
+            {message}
+          </p>
+        )}
+        <form className="password-change__form" onSubmit={handleChangePassword}>
+          <input
+            className="password-change__input"
+            type="password"
+            placeholder="Current Password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            required
+          />
+          <input
+            className="password-change__input"
+            type="password"
+            placeholder="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+          <input
+            className="password-change__input"
+            type="password"
+            placeholder="Confirm New Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <button type="submit" className="password-change__submit-btn">
+            Update Password
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default ChangePassword;
