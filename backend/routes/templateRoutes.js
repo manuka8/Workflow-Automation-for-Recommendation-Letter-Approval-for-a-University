@@ -51,5 +51,48 @@ router.post("/create-template", async (req, res) => {
   }
 });
 
+router.post("/:id/format", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { questions } = req.body;
+  
+      if (!questions || !Array.isArray(questions) || questions.length === 0) {
+        return res
+          .status(400)
+          .json({ message: "Questions are required and must be an array." });
+      }
+  
+      for (const question of questions) {
+        if (!question.question || !question.answerType) {
+          return res
+            .status(400)
+            .json({
+              message: "Each question must have a question text and answerType.",
+            });
+        }
+      }
+  
+      const template = await Template.findByIdAndUpdate(
+        id,
+        { questions },
+        { new: true }
+      );
+  
+      if (!template) {
+        return res.status(404).json({ message: "Template not found." });
+      }
+  
+      res.status(200).json({
+        message: "Template format defined successfully.",
+        updatedTemplate: template,
+      });
+    } catch (error) {
+      console.error("Error updating template format:", error);
+      res
+        .status(500)
+        .json({ message: "Failed to define format.", error: error.message });
+    }
+  });
+  
 
 module.exports = router;
