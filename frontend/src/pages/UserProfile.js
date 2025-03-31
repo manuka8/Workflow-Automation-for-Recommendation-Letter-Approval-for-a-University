@@ -56,3 +56,90 @@ const UserProfile = () => {
     localStorage.clear();
     window.location.href = "/mainlogin"; 
   };
+
+
+  if (loading) return <p>Loading...</p>;
+  console.log(`http://localhost:5000${user.profilePicture}`);
+  return (
+    <>
+      <Navbar />
+      <div className="profile-container">
+        <h2>User Profile</h2>
+        <img
+          src={
+            user.profilePicture
+              ? `http://localhost:5000${user.profilePicture}`
+              : "/default-avatar.png"
+          }
+          alt="Profile"
+          className="profile-picture"
+        />
+
+        <label className="file-input-label">
+          Upload New Photo
+          <input
+            className="file-input"
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
+        </label>
+
+        <div className="profile-details">
+          <p>
+            <strong>ID:</strong> {user.studentId || user.staffId}
+          </p>
+          <p>
+            <strong>Name:</strong> {user.firstName} {user.lastName}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Faculty:</strong> {user.faculty}
+          </p>
+          <p>
+            <strong>Department:</strong> {user.department}
+          </p>
+          {userType !== "student" && (
+            <p>
+              <strong>Position:</strong> {user.position}
+            </p>
+          )}
+        </div>
+
+        <button
+          style={{
+            backgroundColor: "#007bff",
+            color: "#fff",
+            padding: "10px 15px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            margin: "10px 5px",
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+
+        <button
+          style={{
+            backgroundColor: "#28a745",
+            color: "#fff",
+            padding: "10px 15px",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            margin: "10px 5px",
+          }}
+          onClick={() => (window.location.href = "/changepasssword")}
+        >
+          Change Password
+        </button>
+      </div>
+    </>
+  );
+};
+
+export default UserProfile;
