@@ -51,5 +51,41 @@ router.get('/submissions-by-staff', async (req, res) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
-
+router.get('/questions/:id', async (req, res) => {
+    try {
+      const submissionId = req.params.id;
+      const { staffId } = req.query;
+      const staff = await Staff.findOne({ staffId });
+      if (!staffId) {
+        return res.status(400).json({ error: 'staffId is required' });
+      }
+  
+      const submission = await Submitted.findById(submissionId);
+  
+      if (!submission) {
+        return res.status(404).json({ error: 'Submission not found' });
+      }
+  
+      const hierarchy = submission.hierarchy;
+      const finalStep = hierarchy[hierarchy.length - 1];
+      const isFinalStep = finalStep && finalStep.staffId === staffId;
+  
+      const filteredQuestions = submission.questions.map((q) => {
+        
+        if (q.visibility === 'all' || q.visibility.split(',').includes(staffId)) {
+          return q;
+        }
+        return null;
+      }).filter(q => q !== null); 
+      res.status(200).json({
+        submission,
+        submissionId: submission._id,
+        questions: filteredQuestions,
+        isFinalStep,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 module.exports = router;
