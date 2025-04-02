@@ -1,0 +1,129 @@
+.staff-register-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.staff-register-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.staff-register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.staff-register-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.staff-register-label {
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.staff-register-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.staff-register-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+}
+
+.staff-register-error {
+  color: #d9534f;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.staff-register-success {
+  color: #5cb85c;
+  font-size: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.staff-register-submit-btn {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.staff-register-submit-btn:hover {
+  background-color: #357abd;
+}
+
+.staff-register-submit-btn:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+.staff-register-success {
+  background-color: #e6f7e6;
+  color: #2d7f2d;
+  border: 1px solid #2d7f2d;
+  padding: 15px;
+  margin: 20px 0;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.staff-register-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.staff-register-home-btn,
+.staff-register-add-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.staff-register-add-btn {
+  background-color: #28a745;
+}
+
+.staff-register-home-btn:hover {
+  background-color: #0056b3;
+}
+
+.staff-register-add-btn:hover {
+  background-color: #218838;
+}
+
+@media (max-width: 600px) {
+  .staff-register-container {
+      width: 95%;
+      padding: 1rem;
+  }
+}
+

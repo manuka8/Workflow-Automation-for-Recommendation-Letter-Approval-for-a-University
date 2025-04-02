@@ -1,0 +1,73 @@
+.resubmit-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .resubmit-title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .resubmit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .resubmit-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .resubmit-textarea,
+  .resubmit-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .resubmit-textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .resubmit-input:focus,
+  .resubmit-textarea:focus {
+    border-color: #ff9800;
+    outline: none;
+  }
+  
+  .resubmit-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #2f00ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .resubmit-button:hover {
+    background-color: #e68900;
+  }
+  
+  .resubmit-error {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+  }
+  
