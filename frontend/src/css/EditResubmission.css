@@ -1,0 +1,246 @@
+.edit-resubmission-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(145deg, #ffffff, #f0f4f8);
+  border-radius: 20px;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.edit-resubmission-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+  position: relative;
+}
+
+.edit-resubmission-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #2196f3, #21cbf3);
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.edit-resubmission-note {
+  font-size: 16px;
+  color: #555;
+  background: linear-gradient(145deg, #e3f2fd, #c8e6f9);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 6px solid #2196f3;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-resubmission-form-group {
+  margin-bottom: 25px;
+}
+
+.edit-resubmission-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.edit-resubmission-label::after {
+  content: '*';
+  color: #d32f2f;
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+.edit-resubmission-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-resubmission-input:focus {
+  border-color: #2196f3;
+  outline: none;
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.4);
+}
+
+.edit-resubmission-textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-resubmission-textarea:focus {
+  border-color: #2196f3;
+  outline: none;
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.4);
+}
+
+.edit-resubmission-option-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-resubmission-option-label {
+  font-size: 14px;
+  color: #555;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.edit-resubmission-date-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-resubmission-date-input:focus {
+  border-color: #2196f3;
+  outline: none;
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.4);
+}
+
+.edit-resubmission-duration-container {
+  display: flex;
+  gap: 15px;
+}
+
+.edit-resubmission-duration-input {
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-resubmission-duration-input:focus {
+  border-color: #2196f3;
+  outline: none;
+  box-shadow: 0 0 8px rgba(33, 150, 243, 0.4);
+}
+
+.edit-resubmission-submit-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(90deg, #2196f3, #21cbf3);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 5px 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+.edit-resubmission-submit-button:hover {
+  background: linear-gradient(90deg, #1976d2, #1aa8d2);
+  box-shadow: 5px 5px 20px rgba(33, 150, 243, 0.5);
+  transform: translateY(-2px);
+}
+
+.edit-resubmission-submit-button:active {
+  transform: translateY(0);
+}
+
+.edit-resubmission-error {
+  font-size: 14px;
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border-left: 6px solid #d32f2f;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+}
+
+.edit-resubmission-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.edit-resubmission-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.edit-resubmission-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.edit-resubmission-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@media (max-width: 768px) {
+  .edit-resubmission-container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .edit-resubmission-title {
+    font-size: 24px;
+  }
+
+  .edit-resubmission-note {
+    font-size: 14px;
+  }
+
+  .edit-resubmission-duration-container {
+    flex-direction: column;
+  }
+}

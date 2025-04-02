@@ -1,0 +1,277 @@
+
+:root {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --form-background: #f8f9fa;
+  --form-border: #e0e0e0;
+  --form-text: #333333;
+  --button-background: #007bff;
+  --button-hover-background: #0056b3;
+  --button-text: #ffffff;
+  --input-background: #ffffff;
+  --input-border: #e0e0e0;
+  --input-text: #333333;
+  --file-upload-border: #ff6f61;
+  --media-upload-border: #4a90e2;
+  --buttonx-background:#005995;
+}
+
+.dark-theme {
+  --background-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --form-background: #2a2a2a;
+  --form-border: #444444;
+  --form-text: #e0e0e0;
+  --button-background: #6a11cb;
+  --button-hover-background: #2575fc;
+  --button-text: #ffffff;
+  --input-background: #2a2a2a;
+  --input-border: #444444;
+  --input-text: #e0e0e0;
+  --file-upload-border: #ff6f61;
+  --media-upload-border: #4a90e2;
+  --buttonx-background:#770080;
+}
+
+.form-page-container {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.form-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--form-background);
+  border: 1px solid var(--form-border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-main-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--form-text);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-duplicate-note {
+  font-size: 14px;
+  color: var(--form-text);
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-left: 4px solid var(--button-background);
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-question-block {
+  margin-bottom: 20px;
+}
+
+.form-question-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--form-text);
+  margin-bottom: 10px;
+}
+
+.form-question-note {
+  font-size: 14px;
+  color: var(--form-text);
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-left: 4px solid var(--button-background);
+}
+
+.form-question-block
+.form-text-input,
+.form-textarea-input,
+.form-date-picker,
+.form-file-input {
+  width: 95%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background-color: var(--input-background);
+  color: var(--input-text);
+  transition: border-color 0.3s ease;
+}
+
+.form-text-input:focus,
+.form-textarea-input:focus,
+.form-date-picker:focus,
+.form-file-input:focus {
+  border-color: var(--button-background);
+  outline: none;
+}
+
+.form-radio-option,
+.form-checkbox-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-radio-option input,
+.form-checkbox-option input {
+  margin-right: 10px;
+}
+
+.form-question-block
+.form-file-upload,
+.form-media-upload {
+  border: 2px solid var(--file-upload-border);
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.form-media-upload {
+  border-color: var(--media-upload-border);
+}
+
+.form-approval-path {
+  margin-bottom: 10px;
+}
+
+.form-approval-select {
+  width: 50%;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background-color: var(--input-background);
+  color: var(--input-text);
+}
+
+.form-hierarchy-section {
+  margin-bottom: 20px;
+}
+
+.form-hierarchy-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(0, 123, 255, 0.1);
+  border-left: 4px solid var(--button-background);
+  margin-bottom: 10px;
+}
+
+.form-remove-step-button {
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-remove-step-button:hover {
+  background-color: #e65a50;
+}
+
+.form-hierarchy-select {
+  width: 50%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background-color: var(--input-background);
+  color: var(--input-text);
+  margin-bottom: 10px;
+}
+
+.form-wrapper .form-add-step-buttonx {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: var(--buttonx-background);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-wrapper .form-add-step-buttonx:hover {
+  background-color: var(--button-hover-background);
+}
+
+.form-page-container .form-submit-buttonx {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--button-text);
+  background-color: var(--button-background);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-page-container .form-submit-buttonx:hover {
+  background-color: var(--button-hover-background);
+}
+.hierachy-section{
+  border: 1px solid #007bff;
+  margin: 5px;
+  padding: 25px;
+  padding-top: 10px;
+  border-radius: 10px;
+}
+.hierachy-section .hierachy-section-title{
+  text-align: center;
+  color: var(--form-text);
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .form-wrapper {
+    padding: 15px;
+  }
+
+  .form-main-title {
+    font-size: 20px;
+  }
+
+  .form-duplicate-note {
+    font-size: 12px;
+  }
+
+  .form-question-text {
+    font-size: 14px;
+  }
+
+  .form-text-input,
+  .form-textarea-input,
+  .form-date-picker,
+  .form-file-input {
+    font-size: 12px;
+  }
+
+  .form-remove-step-button {
+    font-size: 12px;
+  }
+
+  .form-add-step-button {
+    font-size: 12px;
+  }
+
+  .form-submit-button {
+    font-size: 14px;
+  }
+}

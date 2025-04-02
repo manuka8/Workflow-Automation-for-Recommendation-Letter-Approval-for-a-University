@@ -1,0 +1,103 @@
+.view-history-wrapper {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  height: 100vh; 
+  overflow-y: auto;
+}
+
+.view-history-header {
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.view-history-submission-info {
+  margin-bottom: 20px;
+}
+
+.view-history-paragraph {
+  font-size: 1rem;
+  color: #555;
+  margin: 8px 0;
+}
+
+.view-history-hierarchy {
+  margin-top: 20px;
+}
+
+.view-history-hierarchy-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.view-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.view-history-table th,
+.view-history-table td {
+  text-align: left;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.view-history-table th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+.view-history-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.view-history-table tr:hover {
+  background-color: #f1f9ff;
+}
+
+.status {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status.pending-resubmission {
+  color: #e67e22;
+}
+
+.status.approved {
+  color: #27ae60;
+}
+
+.status.waiting-for-approval {
+  color: #c0392b;
+}
+
+.view-history-pending-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-history-pending-btn:hover {
+  background-color: #0056b3;
+}
+
+.view-history-pending-btn:active {
+  background-color: #004085;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
