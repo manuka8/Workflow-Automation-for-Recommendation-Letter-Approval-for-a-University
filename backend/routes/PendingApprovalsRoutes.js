@@ -88,4 +88,57 @@ router.get('/questions/:id', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+  router.put("/:id/approve", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { staffId } = req.body;
+  
+      if (!staffId) {
+        return res.status(400).json({ error: "staffId is required" });
+      }
+  
+      const submission = await Submitted.findById(id);
+  
+      if (!submission) {
+        return res.status(404).json({ error: "Submission not found" });
+      }
+  
+      const hierarchyItem = submission.hierarchy.find(
+        (item) => item.staffId === staffId
+      );
+  
+      if (!hierarchyItem) {
+        return res.status(404).json({ error: "Staff not found in hierarchy" });
+      }
+  
+      hierarchyItem.approved = true;
+      hierarchyItem.pending = false;
+      await submission.save();
+      const allApproved = submission.hierarchy.every((item) => item.approved === true);
+      console.log(allApproved)
+      if (allApproved) {
+        let user = await Student.findOne({ studentId: submission.userId })|| await Staff.findOne({staffId:submission.userId});
+        console.log(user);
+        if (!user) {
+          user = await Staff.findOne({ staffId: submission.userId }); 
+        }
+  
+        if (user) {
+          await sendEmail(
+            user.email,
+            "Final Submission Approved",
+            `Your submission with ID ${id}  has been fully approved.`
+          );
+          console.log(`Email Sent to ${user.email}`)
+        }
+      }
+  
+      await submission.save();
+  
+      res.status(200).json({ message: "Approved successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 module.exports = router;
