@@ -1,0 +1,179 @@
+.main-login-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  padding: 50px;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7b4397 100%);
+  color: white;
+  font-family: "Arial", sans-serif;
+}
+
+.main-login-image {
+  flex: 1;
+  max-width: 50%;
+  text-align: center;
+  animation: fadeInLeft 1s ease-in-out;
+}
+
+.main-login-image img {
+  max-width: 90%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.main-login-content {
+  flex: 1;
+  max-width: 50%;
+  padding: 40px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  animation: fadeInRight 1s ease-in-out;
+}
+
+.main-login-header {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  background: linear-gradient(to right, #bfff00, #fffb00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+.main-login-subtext {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInText 2s forwards;
+  background: linear-gradient(to right, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+.main-login-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.main-login-button {
+  border: none;
+  padding: 18px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.4s ease-in-out;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.main-login-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.student-login {
+  background-color: #fffb00;
+  color: rgb(0, 0, 0);
+}
+
+.student-login:hover {
+  background: linear-gradient(135deg, #43A047 0%, #1B5E20 100%);
+  color: rgb(255, 255, 255);
+}
+
+.staff-login {
+  background-color: #00aeff;
+  color: rgb(0, 0, 0);
+}
+
+.staff-login:hover {
+  background: linear-gradient(135deg, #1E88E5 0%, #1565C0 100%);
+  color: rgb(255, 255, 255);
+}
+
+.non-staff-login {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  color: rgb(0, 0, 0);
+}
+
+.non-staff-login:hover {
+  background: linear-gradient(135deg, #fb8c00 0%, #e65100 100%);
+  color: rgb(255, 255, 255);
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-login-container {
+    padding: 30px;
+  }
+  
+  .main-login-header {
+    font-size: 2.2rem;
+  }
+  
+  .main-login-subtext {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-login-container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+  
+  .main-login-image, 
+  .main-login-content {
+    max-width: 100%;
+    padding: 30px 20px;
+  }
+  
+  .main-login-header {
+    font-size: 2rem;
+  }
+  
+  .main-login-button {
+    padding: 15px 25px;
+  }
+}
