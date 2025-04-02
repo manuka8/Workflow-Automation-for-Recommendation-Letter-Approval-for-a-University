@@ -1,0 +1,64 @@
+.user-reg-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .user-reg-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .user-reg-dropzone {
+    border: 2px dashed #007bff;
+    padding: 30px;
+    background-color: #eef5ff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .user-reg-dropzone:hover {
+    background-color: #ddeaff;
+  }
+  
+  .user-reg-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+  }
+  
+  .user-reg-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .user-reg-button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  .user-reg-message {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .user-reg-error {
+    color: #dc3545;
+  }
+  
+  .user-reg-success {
+    color: #28a745;
+  }
+  

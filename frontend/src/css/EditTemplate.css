@@ -1,0 +1,248 @@
+.edit-template-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  
+  .template-edit {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+  
+  .template-edit h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  
+  .template-edit h3 {
+    color: #2c3e50;
+    margin: 1.5rem 0 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+  
+  .template-edit h4 {
+    color: #2c3e50;
+    margin: 1rem 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .input-fields {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  .input-fields:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+  
+  .input-fields:disabled {
+    background-color: #f5f5f5;
+    color: #777;
+    cursor: not-allowed;
+  }
+  
+  .select-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+  }
+  
+  .select-field:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+  
+  .select-field:disabled {
+    background-color: #f5f5f5;
+    color: #777;
+    cursor: not-allowed;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: #3498db;
+    cursor: pointer;
+  }
+  
+  .checkbox-label:has(input:disabled) {
+    color: #777;
+    cursor: not-allowed;
+  }
+  
+  .question-block {
+    background: #f9f9f9;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid #3498db;
+  }
+  
+  .options-section {
+    margin-top: 1rem;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+  
+  .option-item {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+  }
+  
+  .option-item .input-field {
+    flex-grow: 1;
+  }
+  
+  .add-btn, .remove-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .add-btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    margin-top: 0.5rem;
+  }
+  
+  .add-btn:hover {
+    background-color: #2ecc71;
+  }
+  
+  .remove-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+  }
+  
+  .remove-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .update-btn, .delete-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  
+  .update-btn {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .update-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .submission-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #ffc107;
+  }
+  
+  .submission-warning p {
+    margin: 0;
+  }
+
+  .disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  
+  .disabled .input-field,
+  .disabled .select-field {
+    background-color: #f5f5f5;
+    color: #777;
+  }
+
+  @media (max-width: 768px) {
+    .edit-template-container {
+      padding: 1rem;
+    }
+    
+    .template-edit {
+      padding: 1.5rem;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+    }
+    
+    .update-btn, .delete-btn {
+      width: 100%;
+    }
+  }
