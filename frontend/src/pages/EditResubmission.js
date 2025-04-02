@@ -12,7 +12,7 @@ const EditResubmission = () => {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(''); 
 
-  // Fetch resubmission and submission data
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
