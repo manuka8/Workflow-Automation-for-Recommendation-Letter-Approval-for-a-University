@@ -1,0 +1,168 @@
+:root {
+  --background-color: #f8f9fa;
+  --text-color: #333333;
+  --card-background: #ffffff;
+  --card-border: #e0e0e0;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --button-background: #007bff;
+  --button-hover-background: #0056b3;
+  --button-text: #ffffff;
+  --input-background: #ffffff;
+  --input-border: #e0e0e0;
+  --input-text: #333333;
+  --icon-color: #333333;
+  --error-color: #ff6f61;
+  --loading-color: #007bff;
+  --approve-button:#00fd2e;
+}
+
+.dark-theme {
+  --background-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --card-background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  --card-border: #444444;
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --button-background: #6a11cb;
+  --button-hover-background: #2575fc;
+  --button-text: #ffffff;
+  --input-background: #2a2a2a;
+  --input-border: #444444;
+  --input-text: #e0e0e0;
+  --icon-color: #e0e0e0;
+  --error-color: #ff6f61;
+  --loading-color: #6a11cb;
+  --approve-button:#00761f;
+}
+
+.form-content-wrapper {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+.form-content-container {
+  padding-bottom: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.form-content-title {
+  color: var(--text-color);
+  text-align: center;
+  font-size: 20px;
+}
+
+.form-content-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.form-content-questions {
+  flex: 3;
+}
+
+.form-content-submission-info {
+  flex: 1;
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 6px var(--card-shadow);
+}
+
+.form-content-submission-details {
+  margin-bottom: 20px;
+}
+
+.form-content-submission-title {
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.form-content-submission-text {
+  margin: 5px 0;
+}
+
+.form-content-review-link {
+  color: var(--button-background);
+  text-decoration: none;
+}
+
+.form-content-review-link:hover {
+  text-decoration: underline;
+}
+
+.form-content-question-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.form-content-question-item {
+  background: var(--card-background);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px var(--card-shadow);
+}
+
+.form-content-question-text {
+  margin-bottom: 10px;
+}
+
+.form-content-answer {
+  margin-top: 10px;
+}
+
+.form-content-file-link {
+  color: var(--button-background);
+  text-decoration: none;
+}
+
+.form-content-file-link:hover {
+  text-decoration: underline;
+}
+
+.form-content-html-answer {
+  background: var(--input-background);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.form-content-no-questions {
+  color: var(--text-color);
+  text-align: center;
+}
+
+.form-content-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.form-content-button {
+  padding: 20px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--button-text);
+  background-color: var(--button-background);
+}
+
+.form-content-button:hover {
+  background-color: var(--button-hover-background);
+}
+
+.form-content-button-final-approve {
+  background-color: var(--approve-button);
+}
+
+.form-content-button-resubmission {
+  background-color: #ff9800;
+}
+
+.form-content-button-reject {
+  background-color: #f44336;
+}

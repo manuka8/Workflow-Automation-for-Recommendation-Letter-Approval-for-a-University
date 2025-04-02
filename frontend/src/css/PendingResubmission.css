@@ -1,0 +1,91 @@
+.pending-resubmissions-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.pending-resubmissions-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.search-box {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.pending-resubmissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.pending-resubmissions-table th,
+.pending-resubmissions-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.pending-resubmissions-table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.pending-resubmissions-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.pending-resubmissions-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.edit-resubmission-button,
+.request-time-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.edit-resubmission-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-resubmission-button:hover {
+  background-color: #0056b3;
+}
+
+.request-time-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.request-time-button:hover {
+  background-color: #a71d2a;
+}
+
+.more-time-requested {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.no-resubmissions-message {
+  font-size: 16px;
+  color: #666;
+  margin-top: 20px;
+}

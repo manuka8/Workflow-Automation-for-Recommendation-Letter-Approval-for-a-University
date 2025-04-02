@@ -1,0 +1,222 @@
+:root {
+  --bg-primary: #f9f9f9;
+  --bg-secondary: #fff;
+  --text-primary: #333;
+  --text-secondary: #555;
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --success-color: #28a745;
+  --success-hover: #218838;
+  --border-color: #ccc;
+  --border-light: #eee;
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.2);
+  --card-bg: #fff;
+}
+
+.dark-theme {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --primary-color: #3a86ff;
+  --primary-hover: #2667cc;
+  --success-color: #4caf50;
+  --success-hover: #3d8b40;
+  --border-color: #444;
+  --border-light: #333;
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.4);
+  --card-bg: #252525;
+}
+
+.realtime-tracking {
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tracking-header {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.tracking-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+  background: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.tracking-search-box,
+.tracking-sort-dropdown,
+.tracking-date-picker,
+.tracking-status-dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.tracking-view-toggle {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.tracking-search-box:focus,
+.tracking-sort-dropdown:focus,
+.tracking-date-picker:focus,
+.tracking-status-dropdown:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(58, 134, 255, 0.3);
+}
+
+.tracking-view-toggle:hover {
+  background-color: var(--primary-hover);
+}
+
+.tracking-submissions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.tracking-submission-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.tracking-submission-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.tracking-submission-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 15px;
+}
+
+.tracking-submission-info {
+  font-size: 0.9rem;
+  margin: 10px 15px;
+  color: var(--text-secondary);
+}
+
+.tracking-actions {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
+.tracking-view-details {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--success-color);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tracking-view-details:hover {
+  background-color: var(--success-hover);
+}
+
+.tracking-submissions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.tracking-submissions-table th,
+.tracking-submissions-table td {
+  padding: 15px;
+  text-align: left;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.tracking-submissions-table th {
+  background-color: var(--primary-color);
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tracking-submissions-table td {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.tracking-submissions-table tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .tracking-controls {
+    flex-direction: column;
+  }
+
+  .tracking-submission-card {
+    max-width: 100%;
+  }
+
+  .tracking-submissions-table {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tracking-header {
+    font-size: 1.5rem;
+  }
+
+  .tracking-controls input,
+  .tracking-controls select,
+  .tracking-view-toggle {
+    max-width: 100%;
+  }
+}
