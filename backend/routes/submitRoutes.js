@@ -167,5 +167,44 @@ router.get("/viewhistory/:id", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+router.get("/verify/:submissionId", async (req, res) => {
+  try {
+    const { submissionId } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(submissionId)) {
+      return res.status(400).json({ message: "Invalid submission ID" });
+    }
+
+    const submission = await Submitted.findById(submissionId).populate("templateId");
+
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    const isApproved = submission.hierarchy.every((level) => level.approved);
+    const isResubmission = submission.resubmit;
+    const isRejected = submission.reject;
+
+    let statusMessage = "In Progress";
+    if (isApproved) {
+      statusMessage = "This is a valid document and fully approved.";
+    } else if (isResubmission) {
+      statusMessage = "Resubmission required.";
+    } else if (isRejected) {
+      statusMessage = "This submission has been rejected.";
+    }
+
+    res.json({
+      submissionId,
+      userId: submission.userId,
+      templateName: submission.templateId.name, // Assuming the template model has a 'name' field
+      submittedAt: submission.submittedAt,
+      hierarchy: submission.hierarchy,
+      statusMessage,
+    });
+  } catch (error) {
+    console.error("Error fetching submission:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 module.exports = router;
