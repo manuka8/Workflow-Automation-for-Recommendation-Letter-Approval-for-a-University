@@ -151,4 +151,21 @@ const calculateStatus = (submission, staffId) => {
   if (hierarchy.some((h) => h.pending)) return "Pending Resubmission";
   return "Waiting Resubmission of You";
 };
+
+router.get("/viewhistory/:id", async (req, res) => {
+  try {
+    const submission = await Submitted.findById(req.params.id).populate("templateId", "templateName");
+    
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    
+    res.json(submission);
+  } catch (error) {
+    console.error("Error fetching submission:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
