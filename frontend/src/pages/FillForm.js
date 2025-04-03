@@ -417,6 +417,109 @@ const FillForm = () => {
               </div>
             ))}
 
+            <div className="hierachy-section">
+              <div className="form-approval-path">
+                <h3 className="hierachy-section-title">
+                  Define letter approval hierarchy details here
+                </h3>
+                <label>Select Own Letter Approval Path:</label>
+                <select
+                  value={approvalPath}
+                  onChange={(e) => setApprovalPath(e.target.value)}
+                  className="form-approval-select"
+                >
+                  <option value="">Select Approval Path</option>
+                  <option value="faculty">
+                    Select only your faculty staff members
+                  </option>
+                  <option value="department">
+                    Select only your department staff members
+                  </option>
+                  <option value="both">Select from all staff members</option>
+                </select>
+              </div>
+
+              <div className="form-predefined-hierarchy">
+                <h3>Predefined Position Hierarchy</h3>
+                {predefinedHierarchy.map((step, index) => (
+                  <div key={index} className="form-hierarchy-step">
+                    <p>{step.position}</p>
+                    <Select
+                      options={staffList
+                        .filter(
+                          (staff) =>
+                            staff.position === step.position &&
+                            staff.department &&
+                            staff.department !== "Non " &&
+                            staff.faculty &&
+                            staff.faculty !== "Non "
+                        )
+                        .map((staff) => {
+                          let labelParts = [
+                            `${staff.firstName} ${staff.lastName}`,
+                            staff.position,
+                          ];
+
+                          if (staff.department && staff.department !== "Non") {
+                            labelParts.push(staff.department);
+                          }
+
+                          if (staff.faculty && staff.faculty !== "Non") {
+                            labelParts.push(`(${staff.faculty})`);
+                          }
+                          return {
+                            value: staff.staffId,
+                            label: labelParts.join(" - "),
+                          };
+                        })}
+                      onChange={(selectedOption) =>
+                        handleSelectStaff(index, selectedOption)
+                      }
+                      value={
+                        selectedHierarchy[index]
+                          ? {
+                              value: selectedHierarchy[index].staffId,
+                              label: (() => {
+                                let labelParts = [
+                                  selectedHierarchy[index].position,
+                                ];
+
+                                if (
+                                  selectedHierarchy[index].department &&
+                                  selectedHierarchy[index].department !== "Non"
+                                ) {
+                                  labelParts.push(
+                                    selectedHierarchy[index].department
+                                  );
+                                }
+
+                                if (
+                                  selectedHierarchy[index].faculty &&
+                                  selectedHierarchy[index].faculty !== "Non"
+                                ) {
+                                  labelParts.push(
+                                    `(${selectedHierarchy[index].faculty})`
+                                  );
+                                }
+
+                                return labelParts.join(" - ");
+                              })(),
+                            }
+                          : null
+                      }
+                      placeholder="Select Staff Member"
+                      className="form-hierarchy-select"
+                    />
+                    {selectedHierarchy[index] && (
+                      <button
+                        onClick={() => handleRemoveStaff(index)}
+                        className="form-remove-step-button"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
