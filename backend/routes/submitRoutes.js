@@ -197,7 +197,7 @@ router.get("/verify/:submissionId", async (req, res) => {
     res.json({
       submissionId,
       userId: submission.userId,
-      templateName: submission.templateId.name, // Assuming the template model has a 'name' field
+      templateName: submission.templateId.name,
       submittedAt: submission.submittedAt,
       hierarchy: submission.hierarchy,
       statusMessage,
