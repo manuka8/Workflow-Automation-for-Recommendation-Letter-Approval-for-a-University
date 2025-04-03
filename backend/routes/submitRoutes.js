@@ -3,6 +3,8 @@ const router = express.Router();
 const Submitted = require('../models/Submitted');
 const Template = require('../models/Template');
 const multer = require('multer');
+const Submitted = require('../models/Submitted');
+const Resubmission = require('../models/Resubmission')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -109,5 +111,44 @@ router.get("/view-details/:submittedId", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+router.get("/findstaffsubmissions/:staffId", async (req, res) => {
+  const { staffId } = req.params;
 
+  try {
+    const submissions = await Submitted.find({
+      hierarchy: { $elemMatch: { staffId } },
+    })
+      .populate("templateId", "templateName") 
+      .sort({ submittedAt: -1 }); 
+
+    if (!submissions.length) {
+      return res.status(404).json({ message: "No submissions found for this staff member." });
+    }
+
+    const formattedSubmissions = submissions.map((submission) => ({
+      _id: submission._id,
+      templateName: submission.templateId.templateName,
+      userId: submission.userId,
+      submittedAt: submission.submittedAt,
+      hierarchy: submission.hierarchy,
+      status: calculateStatus(submission, staffId),
+    }));
+
+    res.status(200).json(formattedSubmissions);
+  } catch (error) {
+    console.error("Error fetching submissions:", error);
+    res.status(500).json({ message: "An error occurred while fetching submissions." });
+  }
+});
+
+const calculateStatus = (submission, staffId) => {
+  const hierarchy = submission.hierarchy;
+  const index = hierarchy.findIndex((h) => h.staffId === staffId);
+
+  if (index > 0 && !hierarchy[index - 1].approved) return "Waiting Progress";
+  if (!hierarchy[index].approved && hierarchy[index].pending) return "Waiting for your approval";
+  if (hierarchy[index].approved) return "Approved";
+  if (hierarchy.some((h) => h.pending)) return "Pending Resubmission";
+  return "Waiting Resubmission of You";
+};
 module.exports = router;
