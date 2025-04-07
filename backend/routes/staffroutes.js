@@ -1,7 +1,9 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const Staff = require('../models/Staff');
-const { generateToken, authenticate } = require('../security/auth');
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const Staff = require("../models/Staff");
+const { generateToken, authenticate } = require("../security/auth");
+const Student = require("../models/Student");
+const nodemailer = require("nodemailer");
 
 const router = express.Router();
 
@@ -69,10 +71,19 @@ router.get('/profile', authenticate, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
+router.get("/selectstaff", async (req, res) => {
+  const { staffType } = req.query;
+  const staff = await Staff.find(staffType ? { staffType } : {});
+  res.json(staff);
+});
+router.get("/selectstudent", async (req, res) => {
+  const { staffType } = req.query;
+  const staff = await Student.find();
+  res.json(staff);
+});
 router.get("/findallstaff", async (req, res) => {
   try {
-    const staff = await Staff.find(); // Fetch all staff from the database
+    const staff = await Staff.find(); 
     res.json(staff);
   } catch (err) {
     res.status(500).json({ error: err.message });

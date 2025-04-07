@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Define the student schema
 const studentSchema = new mongoose.Schema({
   studentId: {
     type: String,
@@ -38,16 +37,22 @@ const studentSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  course: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   password: {
     type: String,
     required: true,
     minlength: 6,
   },
+  profilePicture: { type: String, default: "" },
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-// Export the model
 module.exports = mongoose.model('Student', studentSchema);

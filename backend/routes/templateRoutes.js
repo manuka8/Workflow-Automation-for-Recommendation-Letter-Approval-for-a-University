@@ -248,6 +248,13 @@ router.delete("/deletetemplate/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
+router.get('/check-submissions/:templateId', async (req, res) => {
+  try {
+    const count = await Submitted.countDocuments({ templateId: req.params.templateId });
+    res.json({ hasSubmissions: count > 0 });
+  } catch (err) {
+    res.status(500).json({ message: 'Error checking submissions' });
+  }
+});
 
 module.exports = router;
