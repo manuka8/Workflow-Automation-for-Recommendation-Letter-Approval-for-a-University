@@ -36,6 +36,21 @@ const submittedSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      note: {
+        type: String,
+        default: "",
+        validate: {
+          validator: function (val) {
+            return !this.includeNote || (val && val.trim().length > 0);
+          },
+          message: "If a note is included, it cannot be empty.",
+        },
+      },
+      answerType: {
+        type: String,
+        required: true,
+        enum: ["text", "checkbox", "textarea", "text-editor", "radio", "upload","single_date","single_date_future","duration","duration_future","doc_upload","media_upload"],
+      },
       answer: {
         type: mongoose.Schema.Types.Mixed,
         required: true,
@@ -44,6 +59,15 @@ const submittedSchema = new mongoose.Schema({
         type: String,
         default: "all",
       },
+      options: [
+        {
+          type: String,
+        },
+      ],
+      hideVisibility: [{
+        type: String,
+        default: []
+      }]
     },
   ],
   resubmit: {

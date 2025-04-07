@@ -3,7 +3,6 @@ const router = express.Router();
 const Submitted = require('../models/Submitted');
 const Template = require('../models/Template');
 const multer = require('multer');
-const Submitted = require('../models/Submitted');
 const Resubmission = require('../models/Resubmission')
 
 const storage = multer.diskStorage({
