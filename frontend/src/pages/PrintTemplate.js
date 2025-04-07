@@ -10,7 +10,6 @@ const PrintTemplate = () => {
   const { template } = location.state || {};
 
   useEffect(() => {
-    // Prevent back navigation
     const handlePopState = () => {
       navigate("/admindashboard", { replace: true });
     };
@@ -32,7 +31,6 @@ const PrintTemplate = () => {
     const doc = new jsPDF();
     let y = 20;
 
-    // Header
     doc.setFontSize(20);
     doc.text(`${template.templateName} Form`, 105, 15, { align: "center" });
     doc.setFontSize(12);
@@ -40,7 +38,6 @@ const PrintTemplate = () => {
 
     y += 10;
 
-    // Template Information
     doc.setFontSize(14);
     doc.text(`Template Name: ${template.templateName}`, 15, y);
     y += 8;
@@ -64,12 +61,11 @@ const PrintTemplate = () => {
       y += 5;
       doc.setFontSize(12);
 
-      // ✅ Corrected Note Printing
       if (q.note?.trim().length > 0) {
         doc.setFontSize(11);
-        doc.setTextColor(100); // Optional: Gray color for notes
+        doc.setTextColor(100); 
         doc.text(`Note: ${q.note}`, 15, y);
-        doc.setTextColor(0); // Reset to black
+        doc.setTextColor(0); 
         y += 5;
       }
 
@@ -105,13 +101,11 @@ const PrintTemplate = () => {
 
     y += 15;
 
-    // Ensure enough space for signatures
     if (y > 250) {
       doc.addPage();
       y = 20;
     }
 
-    // Signature Section
     doc.setFontSize(14);
     doc.text("Authorized Signatures", 15, y);
     y += 10;
@@ -121,7 +115,6 @@ const PrintTemplate = () => {
     doc.text("Signature 2", 130, y + 5);
     y += 15;
 
-    // Footer
     doc.setFontSize(10);
     doc.line(10, 285, 200, 285);
     doc.text(

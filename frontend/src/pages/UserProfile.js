@@ -67,9 +67,9 @@ const UserProfile = () => {
         <h2>User Profile</h2>
         <img
           src={
-            user.profilePicture
-              ? `http://localhost:5000${user.profilePicture}`
-              : "/default-avatar.png"
+            user.profilePicture && user.profilePicture.includes("uploads/profile_pic/")
+              ? user.profilePicture
+              : require("../assets/default-avatar.jpg")
           }
           alt="Profile"
           className="profile-picture"

@@ -14,7 +14,7 @@ const PendingApprovals = () => {
   const navigate = useNavigate();
 
   const staffId = localStorage.getItem("ID");
-  
+
   useEffect(() => {
     const fetchPendingApprovals = async () => {
       try {
@@ -53,8 +53,8 @@ const PendingApprovals = () => {
     setFilteredApprovals(
       pendingApprovals.filter(
         (submission) =>
-          submission.templateName.toLowerCase().includes(value) ||
-          submission.userId.toLowerCase().includes(value)
+          submission.templateName.includes(value) ||
+          submission.userId.includes(value)
       )
     );
   };
@@ -73,7 +73,7 @@ const PendingApprovals = () => {
 
   return (
     <>
-      <Navbar backLink="/staffdashboard"/>
+      <Navbar backLink="/staffdashboard" />
       <div className="pending-approvals-container">
         <h1 className="pending-approvals-title">Pending Approvals</h1>
         {loading ? (
@@ -99,31 +99,38 @@ const PendingApprovals = () => {
             </div>
 
             {filteredApprovals.length > 0 ? (
-              <ul className="pending-approvals-list">
-                {filteredApprovals.map((submission) => (
-                  <li
-                    key={submission.submissionId}
-                    className="pending-approvals-item"
-                    onClick={() =>
-                      handleSubmissionClick(submission.submissionId)
-                    }
-                  >
-                    <div className="pending-approvals-item-content">
-                      <p>
-                        <strong>User ID:</strong> {submission.userId}
-                      </p>
-                      <p>
-                        <strong>Template Name:</strong>{" "}
-                        {submission.templateName || "N/A"}
-                      </p>
-                      <p>
-                        <strong>Submitted At:</strong>{" "}
+              <table className="pending-approvals-table">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Template Name</th>
+                    <th>Submitted At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredApprovals.map((submission) => (
+                    <tr
+                      key={submission.submissionId}
+                      className="pending-approvals-row"
+                    >
+                      <td>{submission.userId}</td>
+                      <td>{submission.templateName || "N/A"}</td>
+                      <td>
                         {new Date(submission.submittedAt).toLocaleString()}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                      </td>
+                      <td>
+                        <button
+                          className="view-qa-button"
+                          onClick={() => handleSubmissionClick(submission.submissionId)}
+                        >
+                          View Q&A
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <p className="pending-approvals-empty">
                 No pending approvals found.

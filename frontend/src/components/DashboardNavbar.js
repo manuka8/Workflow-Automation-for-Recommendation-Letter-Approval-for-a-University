@@ -1,135 +1,101 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import "../css/Navbar.css";
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import '../css/DashboardNavbar.css';
 
-const Navbar = ({ backLink }) => {
-  const [profileImage, setProfileImage] = useState(
-    "../assets/default-avatar.jpg"
-  );
-  const [userName, setUserName] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+const DashboardNavbar = ({ backLink }) => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const [showLetterTemplates, setShowLetterTemplates] = useState(false);
+  const [showUserManagement, setShowUserManagement] = useState(false);
 
-  const userId = localStorage.getItem("ID");
-  const userType = localStorage.getItem("type");
+  const navLinks = [
+    { path: '/admindashboard', label: 'Home' }
+  ];
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!userId || !userType) {
-        console.error("User ID or User Type not found in localStorage");
-        setIsLoading(false);
-        return;
-      }
+  const letterTemplateLinks = [
+    { path: '/create-letter-template', label: 'Create Template' },
+    { path: '/selectemplate-admin', label: 'Edit Template' },
+  ];
 
-      setIsLoading(true);
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/profile/${userId}`,
-          {
-            params: { userType },
-          }
-        );
-
-        if (response.data) {
-          setProfileImage(
-            response.data.profilePicture
-              ? `http://localhost:5000${response.data.profilePicture}`
-              : "../assets/default-avatar.jpg"
-          );
-          setUserName(response.data.firstName || "User");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [userId, userType]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
+  const userManagementLinks = [
+    { path: '/mainregister', label: 'Register User' },
+    { path: '/edit-user', label: 'Edit User' },
+  ];
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = "/mainlogin";
+    navigate('/adminlogin');
   };
 
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem("darkMode", newDarkMode);
-    updateTheme(newDarkMode);
-  };
-
-  const updateTheme = (isDarkMode) => {
-    const root = document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark-theme");
-    } else {
-      root.classList.remove("dark-theme");
-    }
-  };
-
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem("darkMode") === "true";
-    setDarkMode(savedDarkMode);
-    updateTheme(savedDarkMode);
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  console.log(profileImage);
   return (
-    <nav className="navbar">
-      <div className="navbar-left">
+    <nav className="dashboard-navbar">
+      <div className="navbar-header">
         {backLink && (
           <button className="back-button" onClick={() => navigate(backLink)}>
-            &larr;
+            ←
           </button>
         )}
-        {userType === "student" ? "Student Portal" : "Staff Portal"}
+        <h2 className="navbar-title">Admin Portal</h2>
       </div>
-      <div className="navbar-right">
-        <button onClick={toggleDarkMode} className="dark-mode-toggle">
-          {darkMode ? "☀️ Light" : "🌙 Dark"}
-        </button>
 
-        <div className="profile-section" onClick={toggleDropdown}>
-          <img
-            src={
-              profileImage && profileImage.includes("uploads/profile_pic/")
-                ? profileImage
-                : require("../assets/default-avatar.jpg")
-            }
-            alt="Profile"
-            className="profile-photo"
-          />
+      <ul className="nav-links">
+        {navLinks.map((link) => (
+          <li key={link.path}>
+            <Link
+              to={link.path}
+              className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
 
-          <span className="profile-name">{userName}</span>
-          {dropdownOpen && (
-            <div className="dropdown-menu">
-              <Link to="/profile" className="dropdown-item">
-                Profile
-              </Link>
-              <Link to="/changepasssword" className="dropdown-item">
-                Change Password
-              </Link>
-              <div className="dropdown-item logout" onClick={handleLogout}>
-                Logout
-              </div>
-            </div>
+        <li
+          className="dropdown"
+          onMouseEnter={() => setShowLetterTemplates(true)}
+          onMouseLeave={() => setShowLetterTemplates(false)}
+        >
+          <span className="nav-link">Letter Templates</span>
+          {showLetterTemplates && (
+            <ul className="dropdown-menu">
+              {letterTemplateLinks.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="dropdown-link">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           )}
-        </div>
-      </div>
+        </li>
+
+        <li
+          className="dropdown"
+          onMouseEnter={() => setShowUserManagement(true)}
+          onMouseLeave={() => setShowUserManagement(false)}
+        >
+          <span className="nav-link">User Management</span>
+          {showUserManagement && (
+            <ul className="dropdown-menu">
+              {userManagementLinks.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="dropdown-link">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+
+        <li>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+        </li>
+      </ul>
     </nav>
   );
 };
 
-export default Navbar;
+export default DashboardNavbar;

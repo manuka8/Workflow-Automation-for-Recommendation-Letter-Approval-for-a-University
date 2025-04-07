@@ -10,7 +10,7 @@ const ViewHistory = () => {
   const [submissionCount, setSubmissionCount] = useState(0);
   const [templateName, setTemplateName] = useState("");
   const navigate = useNavigate();
-
+  const userType = localStorage.getItem("type");
   useEffect(() => {
     const fetchSubmissionData = async () => {
       try {
@@ -38,7 +38,9 @@ const ViewHistory = () => {
 
   return (
     <>
-    <Navbar/>
+    {
+          userType==='student'?<Navbar backLink="/realtimetracking" />:<Navbar backLink="/viewhistory" />
+    }
     <div className="view-history-wrapper">
       <h1 className="view-history-header">View Submission History</h1>
       <div className="view-history-submission-info">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../css/SelectManageUser.css";
+import DashboardNavbar from "../components/DashboardNavbar";
 const SelectManageUser = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
@@ -13,26 +14,23 @@ const SelectManageUser = () => {
   const [yearFilter, setYearFilter] = useState("");
   const [viewType, setViewType] = useState("table"); // Table or Card view
 
-
-
   useEffect(() => {
     // Disable forward navigation when the component is mounted
     window.history.pushState(null, "", location.pathname);
-    
+
     const handlePopState = () => {
       // Navigate to /mainregister when the back button is clicked
       navigate("/mainregister");
       localStorage.removeItem("userType");
     };
-  
+
     window.addEventListener("popstate", handlePopState);
     fetchUsers();
-  
+
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
-  }, [navigate, location.pathname, userType]);  // Adding `userType` as a dependency
-  
+  }, [navigate, location.pathname, userType]); // Adding `userType` as a dependency
 
   const fetchUsers = async () => {
     try {
@@ -44,7 +42,7 @@ const SelectManageUser = () => {
           "http://localhost:5000/api/staff/selectstaff?staffType=Academic Staff";
       } else if (userType === "Non-Academic Staff") {
         endpoint =
-          "http://localhost:5000/api/staff/selectstaff?staffType=Non Academic Staff";
+          "http://localhost:5000/api/staff/selectstaff?staffType=Non-Academic Staff";
       }
 
       const response = await axios.get(endpoint);
@@ -77,119 +75,158 @@ const SelectManageUser = () => {
   const departments = [...new Set(users.map((user) => user.department))]; // Get unique departments
 
   return (
-    <div className="manage-user-container">
-      <h2 className="manage-user-title">
-        Manage {userType === "student" ? "Students" : "Staff"}
-      </h2>
+    <>
+      <DashboardNavbar backLink="/edit-user" />
+      <div className="dashboard-manage-user-wrapper">
+        <div className="manage-user-container">
+          <h2 className="manage-user-title">
+            Edit {userType === "student" ? "Students" : "Staff"}
+          </h2>
 
-      <input
-        type="text"
-        placeholder="Search by Reg No, Name, Email, Position"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="search-input"
-      />
+          <div className="manage-user-search-filter-container">
+            <input
+              type="text"
+              placeholder="Search by Reg No, Name, Email, Position"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="manage-user-search-input"
+            />
 
-      <select
-        onChange={(e) => setFacultyFilter(e.target.value)}
-        className="filter-select"
-      >
-        <option value="">Filter by Faculty</option>
-        {faculties.map((faculty) => (
-          <option key={faculty} value={faculty}>
-            {faculty}
-          </option>
-        ))}
-      </select>
+            <select
+              onChange={(e) => setFacultyFilter(e.target.value)}
+              className="manage-user-filter-select"
+            >
+              <option value="">Filter by Faculty</option>
+              {faculties.map((faculty) => (
+                <option key={faculty} value={faculty}>
+                  {faculty}
+                </option>
+              ))}
+            </select>
 
-      <select
-        onChange={(e) => setDepartmentFilter(e.target.value)}
-        className="filter-select"
-      >
-        <option value="">Filter by Department</option>
-        {departments.map((department) => (
-          <option key={department} value={department}>
-            {department}
-          </option>
-        ))}
-      </select>
+            <select
+              onChange={(e) => setDepartmentFilter(e.target.value)}
+              className="manage-user-filter-select"
+            >
+              <option value="">Filter by Department</option>
+              {departments.map((department) => (
+                <option key={department} value={department}>
+                  {department}
+                </option>
+              ))}
+            </select>
 
-      <select
-        onChange={(e) => setYearFilter(e.target.value)}
-        className="filter-select"
-      >
-        <option value="">Filter by Academic Year</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-      </select>
+            <select
+              onChange={(e) => setYearFilter(e.target.value)}
+              className="manage-user-filter-select"
+            >
+              <option value="">Filter by Academic Year</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </div>
 
-      <div className="view-buttons">
-        <button onClick={() => setViewType("table")} className="view-button">
-          Table View
-        </button>
-        <button onClick={() => setViewType("card")} className="view-button">
-          Card View
-        </button>
-      </div>
+          <div className="manage-user-view-toggle">
+            <button
+              onClick={() => setViewType("table")}
+              className={`manage-user-view-btn ${
+                viewType === "table"
+                  ? "manage-user-view-btn-active"
+                  : "manage-user-view-btn-inactive"
+              }`}
+            >
+              Table View
+            </button>
+            <button
+              onClick={() => setViewType("card")}
+              className={`manage-user-view-btn ${
+                viewType === "card"
+                  ? "manage-user-view-btn-active"
+                  : "manage-user-view-btn-inactive"
+              }`}
+            >
+              Card View
+            </button>
+          </div>
 
-      {viewType === "table" ? (
-        <table className="table-view">
-          <thead>
-            <tr>
-              <th>Reg No</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Faculty</th>
-              <th>Department</th>
-              {userType !== "student" && <th>Position</th>}
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.map((user) => (
-              <tr key={user._id} className="table-view-row">
-                <td>{user.studentId || user.staffId}</td>
-                <td>
-                  {user.firstName} {user.lastName}
-                </td>
-                <td>{user.email}</td>
-                <td>{user.faculty}</td>
-                <td>{user.department}</td>
-                {userType !== "student" && <td>{user.position}</td>}
-                <td>
+          {viewType === "table" ? (
+            <div className="manage-user-table-container">
+              <table className="manage-user-table">
+                <thead className="manage-user-table-header">
+                  <tr>
+                    <th className="manage-user-table-header-cell">Reg No</th>
+                    <th className="manage-user-table-header-cell">Name</th>
+                    <th className="manage-user-table-header-cell">Email</th>
+                    <th className="manage-user-table-header-cell">Faculty</th>
+                    <th className="manage-user-table-header-cell">
+                      Department
+                    </th>
+                    {userType !== "student" && (
+                      <th className="manage-user-table-header-cell">
+                        Position
+                      </th>
+                    )}
+                    <th className="manage-user-table-header-cell">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredUsers.map((user) => (
+                    <tr key={user._id} className="manage-user-table-row">
+                      <td className="manage-user-table-cell">
+                        {user.studentId || user.staffId}
+                      </td>
+                      <td className="manage-user-table-cell">
+                        {user.firstName} {user.lastName}
+                      </td>
+                      <td className="manage-user-table-cell">{user.email}</td>
+                      <td className="manage-user-table-cell">{user.faculty}</td>
+                      <td className="manage-user-table-cell">
+                        {user.department}
+                      </td>
+                      {userType !== "student" && (
+                        <td className="manage-user-table-cell">
+                          {user.position}
+                        </td>
+                      )}
+                      <td className="manage-user-table-cell">
+                        <button
+                          onClick={() =>
+                            handleEdit(user.studentId || user.staffId)
+                          }
+                          className="manage-user-action-btn"
+                        >
+                          Edit
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="manage-user-card-container">
+              {filteredUsers.map((user) => (
+                <div key={user._id} className="manage-user-card">
+                  <h3 className="manage-user-card-title">
+                    {user.firstName} {user.lastName}
+                  </h3>
+                  <p className="manage-user-card-info">
+                    Reg No: {user.studentId || user.staffId}
+                  </p>
                   <button
                     onClick={() => handleEdit(user.studentId || user.staffId)}
-                    className="table-view-action-btn"
+                    className="manage-user-card-btn"
                   >
                     Edit
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="card-view">
-          {filteredUsers.map((user) => (
-            <div key={user._id} className="card-item">
-              <h3 className="card-item-title">
-                {user.firstName} {user.lastName}
-              </h3>
-              <p className="card-item-info">
-                Reg No: {user.studentId || user.staffId}
-              </p>
-              <button
-                onClick={() => handleEdit(user.studentId || user.staffId)}
-                className="card-item-action-btn"
-              >
-                Edit
-              </button>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

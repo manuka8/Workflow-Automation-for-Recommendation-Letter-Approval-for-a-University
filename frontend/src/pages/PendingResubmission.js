@@ -137,7 +137,6 @@ const PendingResubmission = () => {
     <div className="pending-resubmissions-container">
       <h1 className="pending-resubmissions-title">Pending Resubmissions</h1>
 
-      {/* Search Box */}
       <input
         type="text"
         placeholder="Search by Resubmission ID..."

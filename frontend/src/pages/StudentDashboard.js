@@ -8,11 +8,9 @@ const StudentDashboard = () => {
   const navigate = useNavigate();
   const link = '/studentdashboard';
   useEffect(() => {
-    // Push the current state to history
     window.history.pushState(null, "", window.location.href);
 
     const handleBackButton = () => {
-      // Push again to prevent going back
       window.history.pushState(null, "", window.location.href);
     };
 

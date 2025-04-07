@@ -1,67 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
+import "../css/SelectTemplate.css";
+import Navbar from "../components/Navbar";
 
 const SelectTemplate = () => {
+  const [templates, setTemplates] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [darkMode, setDarkMode] = useState(false); // State for dark mode
+  const navigate = useNavigate();
 
-    const [templates, setTemplates] = useState([]); 
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true); 
-    const navigate = useNavigate();
+  const userID = localStorage.getItem("ID");
+  const userType = localStorage.getItem("type");
 
-    
-    const userID = localStorage.getItem("ID");
-    const userType = localStorage.getItem("type");
+ 
+  const updateTheme = (isDarkMode) => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.classList.add("dark-theme");
+    } else {
+      root.classList.remove("dark-theme");
+    }
+  };
 
-   
-     useEffect(() => {
-        const fetchTemplates = async () => {
-            try {
-                const response = await axios.post("http://localhost:5000/api/templates/findalltemplates", {
-                    userID,
-                    userType,
-                });
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem("darkMode") === "true";
+    setDarkMode(savedDarkMode);
+    updateTheme(savedDarkMode);
+  }, []);
 
-          
-                const validTemplates = response.data.map(template => ({
-                    ...template,
-                    templateId: template.templateId || `TPL-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
-                }));
-
-                setTemplates(validTemplates);
-            } catch (err) {
-                console.error("Error fetching templates:", err);
-                setError("Failed to fetch template data.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchTemplates();
-    }, [userID, userType]);
-
-    const handleTemplateId = (id) => {
-        localStorage.setItem('templateId', id); 
-        navigate('/fillform'); 
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/templates/findalltemplates",
+          {
+            userID,
+            userType,
+          }
+        );
+        setTemplates(response.data);
+      } catch (err) {
+        console.error("Error fetching templates:", err);
+        setError("Failed to fetch template data.");
+      } finally {
+        setLoading(false);
+      }
     };
-    
-    return (
-        <div>
-            {loading && <p>Loading templates...</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {!loading && !error && (
-                <ul>
-                    {templates.map((template, index) => ( 
-                        <li key={template.templateId || index}>
-                            <button onClick={() => handleTemplateId(template.templateId)}>
-                                {template.templateName}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            )}
+
+    fetchTemplates();
+  }, [userID, userType]);
+
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      event.preventDefault();
+      if (userType === "student") {
+        navigate(`/studentdashboard`);
+      } else {
+        navigate(`/staffdashboard`);
+      }
+    };
+
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [navigate, userID]);
+
+  const filteredTemplates = templates.filter((template) =>
+    template.templateName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="all">
+      <div className="main-containerx">
+        {
+          userType==='student'?<Navbar backLink="/studentdashboard" />:<Navbar backLink="/staffdashboard" />
+        }
+        <div className="select-template-container">
+          <h1 className="select-template-header">Select a Template</h1>
+
+          <div className="select-template-search">
+            <input
+              type="text"
+              className="select-template-search-input"
+              placeholder="Search by template name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+
+          {loading && (
+            <p className="select-template-loading">Loading templates...</p>
+          )}
+          {error && <p className="select-template-error">{error}</p>}
+
+          {!loading && !error && filteredTemplates.length > 0 && (
+            <div className="select-template-cards">
+              {filteredTemplates.map((template) => (
+                <div key={template._id} className="select-template-card">
+                  <div className="select-template-info">
+                    <div className="select-template-name">
+                      {template.templateName}
+                    </div>
+                  </div>
+                  <Link
+                    to={`/fillform`}
+                    className="select-template-link"
+                    onClick={() =>
+                      localStorage.setItem("templateId", template._id)
+                    }
+                  >
+                    Go to Form
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {!loading && !error && filteredTemplates.length === 0 && (
+            <p className="select-template-error">No templates found.</p>
+          )}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default SelectTemplate;

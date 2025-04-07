@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../css/EditResubmission.css';
 import ReactQuill from "react-quill";
-
+import Navbar from "../components/Navbar";
 const EditResubmission = () => {
   const { resubmissionId } = useParams(); 
   const navigate = useNavigate();
@@ -226,6 +226,8 @@ const EditResubmission = () => {
   }
 
   return (
+    <>
+    <Navbar backLink="/pendingresubmissions" />
     <div className="edit-resubmission-container">
     <h1 className="edit-resubmission-title">Edit Resubmission</h1>
     <p className="edit-resubmission-note">Resubmission Note: {resubmission.note}</p>
@@ -242,6 +244,7 @@ const EditResubmission = () => {
       </button>
     </form>
   </div>
+  </>
     );
 };
 

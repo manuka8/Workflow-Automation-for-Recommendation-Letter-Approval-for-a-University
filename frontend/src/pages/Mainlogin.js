@@ -1,15 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import '../css/MainLogin.css';
+import "../css/MainLogin.css";
+import welcomeImage from "../assets/4579502.jpg"; // Ensure this is the correct path
 
 function MainLogin() {
   const navigate = useNavigate();
 
   return (
     <div className="main-login-container">
-      <div className="main-login-overlay"></div>
+ 
+      <div className="main-login-image">
+        <img src={welcomeImage} alt="Login Illustration" />
+      </div>
+
       <div className="main-login-content">
-        <h1 className="main-login-header">Welcome to Our Portal</h1>
+        <h1 className="main-login-header">Welcome to Login Portal</h1>
         <p className="main-login-subtext">Please select your login type</p>
         <div className="main-login-button-container">
           <button
@@ -22,13 +27,7 @@ function MainLogin() {
             onClick={() => navigate("/stafflogin")}
             className="main-login-button staff-login"
           >
-            Academic Staff Login
-          </button>
-          <button
-            onClick={() => navigate("/nstafflogin")}
-            className="main-login-button non-staff-login"
-          >
-            Non-Academic Staff Login
+            Staff Login
           </button>
         </div>
       </div>
