@@ -151,4 +151,130 @@ router.get('/submission-counts', async (req, res) => {
   ]);
   res.json(submissionCounts);
 });
+const generatePassword = () => {
+  return Math.random().toString(36).slice(-10) + Math.random().toString(36).slice(-2);
+};
+router.post("/upload-student", async (req, res) => {
+  try {
+    const students = req.body.data;
+    if (!students || students.length === 0) {
+      return res.status(400).json({ message: "No student data provided." });
+    }
+
+    for (const student of students) {
+      const existingStudent = await Student.findOne({ $or: [
+        { studentId: student.studentId },
+        { email: student.email }
+      ] });
+      
+      if (existingStudent) {
+        return res.status(400).json({ message: `Student ID or email already in use: ${student.studentId}` });
+      }
+
+      const password = generatePassword();
+      console.log(`Generated password for ${student.studentId}: ${password}`);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      student.password = hashedPassword;
+      
+      await Student.create(student);
+      //await sendEmail(student.email, "Account Created", `Your username: ${student.email}\nYour password: ${password}`);
+    }
+
+    res.json({ message: "Students uploaded successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading students.", error: error.message });
+  }
+});
+const generatePasswords = () => {
+  return Math.floor(10000000 + Math.random() * 90000000).toString();
+};
+
+router.post('/upload-staff', async (req, res) => {
+  try {
+    const { data } = req.body;
+    
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return res.status(400).json({ message: 'No valid data provided' });
+    }
+
+    const results = [];
+    const passwordMap = {}; 
+
+    for (const record of data) {
+      try {
+        if (!record.staffId || !record.firstName || !record.lastName || 
+            !record.staffType || !record.faculty || !record.department || 
+            !record.email || !record.position) {
+          results.push({
+            email: record.email || 'unknown',
+            status: 'failed',
+            error: 'Missing required fields'
+          });
+          continue;
+        }
+
+        const existingStaff = await Staff.findOne({ 
+          $or: [{ staffId: record.staffId }, { email: record.email }] 
+        });
+
+        if (existingStaff) {
+          results.push({
+            email: record.email,
+            status: 'skipped',
+            error: 'Staff already exists'
+          });
+          continue;
+        }
+
+        const password = generatePasswords();
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newStaff = new Staff({
+          staffId: record.staffId,
+          firstName: record.firstName,
+          lastName: record.lastName,
+          staffType: record.staffType,
+          faculty: record.faculty,
+          department: record.department,
+          email: record.email,
+          position: record.position,
+          password: hashedPassword
+        });
+
+        await newStaff.save();
+        
+        passwordMap[record.email] = password;
+        
+        results.push({
+          email: record.email,
+          status: 'success'
+        });
+
+      } catch (error) {
+        results.push({
+          email: record.email || 'unknown',
+          status: 'failed',
+          error: error.message
+        });
+      }
+    }
+
+    const response = {
+      message: 'Staff upload processed',
+      details: results,
+      passwords: passwordMap
+    };
+
+    console.log('Generated passwords for staff:');
+    for (const [email, password] of Object.entries(passwordMap)) {
+      console.log(`${email}: ${password}`);
+    }
+
+    res.status(200).json(response);
+
+  } catch (error) {
+    console.error('Error in staff upload:', error);
+    res.status(500).json({ message: 'Server error during staff upload' });
+  }
+});
 module.exports = router;
