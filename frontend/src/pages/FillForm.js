@@ -124,7 +124,7 @@ const FillForm = () => {
 
   const handleRemoveStaff = (positionIndex) => {
     const updatedHierarchy = [...selectedHierarchy];
-    updatedHierarchy[positionIndex] = null; 
+    updatedHierarchy[positionIndex] = null;
     setSelectedHierarchy(updatedHierarchy);
   };
 
@@ -215,7 +215,6 @@ const FillForm = () => {
               <div key={index} className="form-question-block">
                 <h4 className="form-question-text">{question.question}</h4>
 
-                
                 {question?.answerType === "text" && (
                   <input
                     type="text"
