@@ -77,9 +77,3 @@ Welcome to the **Workflow Automation System** project! This repository is dedica
 
 ---
 
-## 📜 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
